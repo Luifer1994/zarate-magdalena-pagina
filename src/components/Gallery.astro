@@ -1,44 +1,32 @@
 ---
-import fs from "node:fs";
-import path from "node:path";
+import { Image } from "astro:assets";
 
 interface Props {
-  folderPath?: string;
   count?: number;
   title?: string;
   subtitle?: string;
 }
 
 const {
-  folderPath = "/img/galeria-zarate",
   count = 6,
   title = "Galería Fotográfica",
   subtitle = "Un vistazo a la magia de Zárate",
 } = Astro.props;
 
-// Get images from the public folder
-const publicDir = path.join(process.cwd(), "public");
-const galleryDir = path.join(publicDir, folderPath);
+// Get images from src/assets using glob
+const imageFiles = import.meta.glob<{ default: ImageMetadata }>(
+  "../assets/gallery-zarate/*.{jpeg,jpg,png,tiff,webp,gif,svg,avif}",
+  { eager: true }
+);
 
-let images: string[] = [];
-
-try {
-  if (fs.existsSync(galleryDir)) {
-    const files = fs.readdirSync(galleryDir);
-    images = files
-      .filter((file) => {
-        const ext = path.extname(file).toLowerCase();
-        return [".jpg", ".jpeg", ".png", ".webp"].includes(ext);
-      })
-      .map((file) => `${folderPath}/${file}`);
-  }
-} catch (error) {
-  console.error(`Error reading gallery directory: ${error}`);
-}
+const images = Object.values(imageFiles).map((file) => file.default);
 
 // Shuffle all images
 const allImages = images.sort(() => 0.5 - Math.random());
 const visibleImages = allImages.slice(0, count);
+
+// Extract just the SRC strings for the lightbox to use
+const allImageSrcs = allImages.map((img) => img.src);
 ---
 
 <section class="py-24 bg-zarate-light" id="galeria-section">
@@ -55,7 +43,7 @@ const visibleImages = allImages.slice(0, count);
     <div
       class="w-full relative"
       id="gallery-grid"
-      data-all-images={JSON.stringify(allImages)}
+      data-all-images={JSON.stringify(allImageSrcs)}
     >
       <!-- Sizers for Masonry -->
       <div
@@ -69,13 +57,14 @@ const visibleImages = allImages.slice(0, count);
           <div
             class="gallery-item w-[calc(50%-0.5rem)] md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.34rem)] mb-4 md:mb-8 group relative overflow-hidden rounded-2xl shadow-md cursor-pointer opacity-0 translate-y-10"
             data-index={index}
-            data-src={image}
+            data-src={image.src}
           >
-            <img
+            <Image
               src={image}
               alt={`Galería Zárate ${index + 1}`}
               class="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
-              loading="lazy"
+              widths={[400, 800]}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
             <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
               <span class="text-white text-4xl font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform scale-50 group-hover:scale-100">

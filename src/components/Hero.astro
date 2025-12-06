@@ -14,17 +14,12 @@ const { hero } = zarateData.content;
     </div>
 
     <!-- HTML5 Video Element -->
-    <video
-      id="hero-video"
-      class="absolute top-1/2 left-1/2 w-full h-full min-w-full min-h-full -translate-x-1/2 -translate-y-1/2 object-cover pointer-events-none hero-bg scale-110"
-      autoplay
-      muted
-      playsinline
-      preload="metadata"
-    >
-      <source src="/videos/hero-1.mp4" type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
+    <!-- Hero Image -->
+    <img
+      src={hero.hero_image}
+      alt="Hero Banner"
+      class="absolute top-1/2 left-1/2 w-full h-full min-w-full min-h-full -translate-x-1/2 -translate-y-1/2 object-cover hero-bg scale-110"
+    />
   </div>
 
   <div class="relative z-10 text-center text-white max-w-4xl px-4 mt-16">
@@ -157,43 +152,7 @@ const { hero } = zarateData.content;
       });
     }
 
-    const videoElement = document.getElementById(
-      "hero-video"
-    ) as HTMLVideoElement;
-
-    if (videoElement) {
-      const videos = ["/videos/hero-1.mp4", "/videos/hero-2.mp4"];
-
-      // Pick random start video index
-      let currentIndex = Math.floor(Math.random() * videos.length);
-
-      // Function to play current video
-      const playVideo = (index: number) => {
-        videoElement.src = videos[index];
-        videoElement.load();
-        videoElement.play().catch((e) => console.log("Autoplay blocked:", e));
-      };
-
-      // Initial play
-      playVideo(currentIndex);
-
-      // Random Start Time (Only for the first video on load)
-      videoElement.addEventListener("loadedmetadata", function onMetadata() {
-        const duration = videoElement.duration;
-        if (duration > 10) {
-          const randomStart = Math.random() * (duration - 5);
-          videoElement.currentTime = randomStart;
-        }
-        // Remove listener so it doesn't trigger on subsequent videos
-        videoElement.removeEventListener("loadedmetadata", onMetadata);
-      });
-
-      // When video ends, play the next one
-      videoElement.addEventListener("ended", () => {
-        currentIndex = (currentIndex + 1) % videos.length; // Cycle to next
-        playVideo(currentIndex);
-      });
-    }
+    // Video logic removed
 
     // Parallax Effect
     gsap.to(".hero-bg", {

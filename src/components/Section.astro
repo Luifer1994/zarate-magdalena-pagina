@@ -1,0 +1,62 @@
+---
+interface Props {
+  id?: string;
+  title?: string;
+  subtitle?: string;
+  className?: string;
+  background?: 'white' | 'light' | 'primary' | 'secondary';
+  waveTop?: boolean;
+  waveBottom?: boolean;
+}
+
+const { 
+  id, 
+  title, 
+  subtitle, 
+  className = "", 
+  background = 'white',
+  waveTop = false,
+  waveBottom = false
+} = Astro.props;
+
+const bgColors = {
+  white: 'bg-white',
+  light: 'bg-background', // #F0F8FF
+  primary: 'bg-primary text-white',
+  secondary: 'bg-secondary text-white'
+};
+
+const textColor = (background === 'primary' || background === 'secondary') ? 'text-white' : 'text-primary';
+const subTextColor = (background === 'primary' || background === 'secondary') ? 'text-white/80' : 'text-text/80';
+---
+
+<section id={id} class={`relative py-20 ${bgColors[background]} ${className}`}>
+  
+  {waveTop && (
+    <div class="absolute top-0 left-0 w-full overflow-hidden leading-none rotate-180 z-10">
+        <svg class="relative block w-[calc(100%+1.3px)] h-[80px]" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class={background === 'white' ? 'fill-background' : 'fill-white'}></path>
+        </svg>
+    </div>
+  )}
+
+  <div class="container mx-auto px-6 relative z-20">
+    {(title || subtitle) && (
+      <div class="text-center mb-16 max-w-3xl mx-auto">
+        {title && <h2 class={`text-4xl md:text-5xl font-heading font-bold mb-4 ${textColor}`}>{title}</h2>}
+        {subtitle && <p class={`text-lg md:text-xl font-body ${subTextColor}`}>{subtitle}</p>}
+        <div class="w-24 h-1 bg-accent mx-auto mt-6 rounded-full"></div>
+      </div>
+    )}
+    
+    <slot />
+  </div>
+
+  {waveBottom && (
+    <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none z-10">
+        <svg class="relative block w-[calc(100%+1.3px)] h-[80px]" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="fill-white"></path>
+        </svg>
+    </div>
+  )}
+</section>

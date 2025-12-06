@@ -1,0 +1,221 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Navigation from "../components/Navigation.astro";
+import zarateData from "../data/zarate.json";
+
+const { ecology } = zarateData.content;
+---
+
+<Layout
+  title={`Ecología - ${zarateData.site_config.title}`}
+  image={ecology.hero_image}
+>
+  <Navigation />
+
+  <main>
+    <!-- Page Hero -->
+    <section
+      class="relative h-[60vh] flex items-center justify-center overflow-hidden"
+    >
+      <div class="absolute inset-0 z-0">
+        <img
+          src={ecology.hero_image}
+          alt="Ecología Zárate"
+          class="w-full h-full object-cover page-hero-bg scale-110"
+        />
+        <div
+          class="absolute inset-0 bg-gradient-to-b from-black/50 to-zarate-green/60 mix-blend-multiply"
+        >
+        </div>
+      </div>
+      <div class="relative z-10 text-center text-white max-w-4xl px-4 mt-16">
+        <span
+          class="text-zarate-green font-bold tracking-widest uppercase mb-4 block animate-fade-in bg-white/20 inline-block px-4 py-1 rounded-full backdrop-blur-sm"
+          >{ecology.hero_tag}</span
+        >
+        <h1
+          class="font-serif text-5xl md:text-7xl mb-6 leading-tight animate-fade-in delay-100"
+        >
+          {ecology.title}
+        </h1>
+        <p
+          class="text-lg md:text-xl text-white/90 max-w-2xl mx-auto font-light animate-fade-in delay-200"
+        >
+          {ecology.subtitle}
+        </p>
+      </div>
+      <div class="wave-bottom">
+        <svg
+          data-name="Layer 1"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 1200 120"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+            fill="#F0F9FF"></path>
+        </svg>
+      </div>
+    </section>
+
+    <!-- Intro -->
+    <section class="py-20 bg-zarate-light">
+      <div class="max-w-4xl mx-auto px-6 text-center">
+        <p class="text-xl text-slate-600 leading-relaxed gsap-fade-up">
+          {ecology.description}
+        </p>
+      </div>
+    </section>
+
+    <!-- Biodiversity -->
+    <section class="py-24 bg-white relative">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="mb-16 text-center">
+          <h2 class="text-4xl font-serif text-zarate-green mb-4 gsap-fade-up">
+            {ecology.section_title_biodiversity}
+          </h2>
+          <p class="text-slate-500 gsap-fade-up">
+            {ecology.section_subtitle_biodiversity}
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-12">
+          <!-- Flora -->
+          <div class="space-y-6">
+            <h3
+              class="text-2xl font-serif text-zarate-blue border-b-2 border-zarate-green inline-block pb-2 mb-6 gsap-fade-right"
+            >
+              {ecology.biodiversity.section_title_flora}
+            </h3>
+            {
+              ecology.biodiversity.flora.map((item) => (
+                <div class="bg-zarate-light p-6 rounded-2xl flex items-start gap-4 hover:shadow-md transition-shadow bio-card opacity-0 translate-x-[-20px]">
+                  <div class="w-12 h-12 bg-zarate-green/20 rounded-full flex items-center justify-center text-2xl shrink-0">
+                    🌿
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-zarate-blue text-lg">
+                      {item.name}
+                    </h4>
+                    <p class="text-slate-600 text-sm">{item.description}</p>
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+
+          <!-- Fauna -->
+          <div class="space-y-6">
+            <h3
+              class="text-2xl font-serif text-zarate-blue border-b-2 border-zarate-earth inline-block pb-2 mb-6 gsap-fade-left"
+            >
+              {ecology.biodiversity.section_title_fauna}
+            </h3>
+            {
+              ecology.biodiversity.fauna.map((item) => (
+                <div class="bg-zarate-light p-6 rounded-2xl flex items-start gap-4 hover:shadow-md transition-shadow bio-card opacity-0 translate-x-[20px]">
+                  <div class="w-12 h-12 bg-zarate-earth/20 rounded-full flex items-center justify-center text-2xl shrink-0">
+                    🐾
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-zarate-blue text-lg">
+                      {item.name}
+                    </h4>
+                    <p class="text-slate-600 text-sm">{item.description}</p>
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<script>
+  import gsap from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  document.addEventListener("astro:page-load", () => {
+    // Check if we are on the ecology page (or a page with .page-hero-bg)
+    if (!document.querySelector(".page-hero-bg")) return;
+
+    // Hero Parallax
+    gsap.to(".page-hero-bg", {
+      scrollTrigger: {
+        trigger: "main",
+        start: "top top",
+        end: "bottom top",
+        scrub: true,
+      },
+      y: 50,
+      scale: 1.05,
+    });
+
+    // Fade Up
+    const fadeUpElements = gsap.utils.toArray(".gsap-fade-up");
+    if (fadeUpElements.length > 0) {
+      fadeUpElements.forEach((element: any) => {
+        gsap.fromTo(
+          element,
+          { y: 30, opacity: 0 },
+          {
+            scrollTrigger: {
+              trigger: element,
+              start: "top 85%",
+              toggleActions: "play none none reverse",
+            },
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            ease: "power3.out",
+          }
+        );
+      });
+    }
+
+    // Bio Cards
+    const bioCards = gsap.utils.toArray(".bio-card");
+    if (bioCards.length > 0) {
+      bioCards.forEach((element: any) => {
+        gsap.fromTo(
+          element,
+          { x: 0, opacity: 0 },
+          {
+            scrollTrigger: {
+              trigger: element,
+              start: "top 90%",
+            },
+            x: 0,
+            opacity: 1,
+            duration: 0.6,
+            ease: "power2.out",
+          }
+        );
+      });
+    }
+
+    // Problem Cards Stagger
+    const problemCards = document.querySelectorAll(".problem-card");
+    if (problemCards.length > 0) {
+      gsap.fromTo(
+        ".problem-card",
+        { y: 50, opacity: 0 },
+        {
+          scrollTrigger: {
+            trigger: ".problem-card",
+            start: "top 80%",
+          },
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.2,
+          ease: "back.out(1.7)",
+        }
+      );
+    }
+  });
+</script>

@@ -1,0 +1,24 @@
+{
+  "name": "app",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.1.17",
+    "astro": "^5.16.4",
+    "gsap": "^3.13.0",
+    "imagesloaded": "^5.0.0",
+    "lite-youtube-embed": "^0.3.4",
+    "masonry-layout": "^4.2.2",
+    "tailwindcss": "^4.1.17"
+  },
+  "devDependencies": {
+    "@types/imagesloaded": "^4.1.7",
+    "@types/masonry-layout": "^4.2.8"
+  }
+}

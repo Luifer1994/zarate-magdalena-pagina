@@ -1,0 +1,416 @@
+{
+    "site_config": {
+        "title": "Zárate: La Cuna del Río",
+        "subtitle": "Donde la historia del Río Magdalena respira",
+        "description": "Descubre la historia, la riqueza natural y la resiliencia de la comunidad de Zárate, un tesoro en la Depresión Momposina.",
+        "language": "es",
+        "version": "2.0.0",
+        "last_updated": "2025-12-05",
+        "seo_keywords": [
+            "Zárate",
+            "Magdalena",
+            "Plato",
+            "Ciénaga",
+            "Ecoturismo",
+            "Historia Indígena",
+            "Chimila",
+            "Naturaleza",
+            "Realismo Mágico"
+        ],
+        "default_image": "/img/escudo-zarate.png"
+    },
+    "theme": {
+        "colors": {
+            "primary": "#006994",
+            "secondary": "#2E8B57",
+            "accent": "#DAA520",
+            "background": "#F0F8FF",
+            "text": "#333333",
+            "semantic": {
+                "earth": "#8B5A2B",
+                "water": "#4A708B",
+                "nature": "#556B2F",
+                "sunset": "#FF7043"
+            }
+        },
+        "fonts": {
+            "headings": "Playfair Display, serif",
+            "body": "Inter, sans-serif",
+            "accent": "Montserrat, sans-serif",
+            "handwritten": "Caveat, cursive"
+        }
+    },
+    "content": {
+
+        "hero": {
+            "headline": "Tradición <br /> y Cultura",
+            "subheadline": "Zárate, Magdalena, Colombia",
+            "intro_text": "En las márgenes del Río Magdalena, oculto entre la modernidad y el olvido, yace un pueblo que se niega a desaparecer. Un lugar donde los mitos caminan descalzos y la naturaleza es la verdadera dueña del tiempo.",
+            "cta_text": "Descubrir"
+        },
+        "territory": {
+            "tagline": "Territorio Anfibio",
+            "title": "Ciénaga de <span class=\"text-zarate-green\">Zárate</span>",
+            "description": "Un santuario de vida donde el agua y la tierra danzan eternamente. Esta <strong>Ciénaga</strong> es el <strong>corazón palpitante</strong> de nuestro territorio, un refugio vital donde la <strong>biodiversidad</strong> florece en cada rincón.",
+            "features": [
+                "Hogar de aves, manatíes y bocachicos.",
+                "Paisajes de Taruya y árboles de Campano.",
+                "Acceso vía acuática o terrestre desde Plato."
+            ],
+            "cta_text": "Ver Mapa Detallado",
+            "cta_link": "https://maps.app.goo.gl/SWJXbUnhBJU8Zjq36",
+            "map_points": [
+                {
+                    "x": 58,
+                    "y": 53,
+                    "title": "Corazón de la Ciénaga",
+                    "description": "El punto más profundo y vital del ecosistema."
+                },
+                {
+                    "x": 73,
+                    "y": 53,
+                    "title": "Puerto de Zárate",
+                    "description": "Donde los pescadores llegan despues de una jornada de pesca."
+                },
+                {
+                    "x": 40,
+                    "y": 60,
+                    "title": "Avistamiento",
+                    "description": "Lugar perfecto para observar garzas y manatíes."
+                }
+            ]
+        },
+        "history": {
+            "title": "Nuestras Raíces Ancestrales",
+            "subtitle": "La Dinastía del Indio Zárate",
+            "intro": "Zárate no es un pueblo cualquiera; es la <strong>'madre' de la civilización</strong> en esta zona. Antes de Plato, existía el <strong>cacicazgo de Zárate</strong>, un nodo comercial y espiritual clave para los Chimilas.",
+            "origins_text": "La descendencia del <strong>Indio Zárate</strong>, máximo jefe de los clanes que fundaron y poblaron los asentamientos en las márgenes del río Magdalena y su conjunto cenagoso. Así se originó <strong>Zárate</strong>, el pueblo más antiguo y poblado de todos, anterior incluso a la fundación de Plato. El fundador de Plato fue el cacique <strong>‘Plato Viejo’</strong>, del mismo clan familiar del Indio Zárate. Otro de los hijos del Indio Zárate se fue con su grupo un poco más lejos y fundó <strong>‘El Tetón’</strong>, hoy municipio de <strong>Córdoba, Bolívar</strong>.",
+            "hero_image": "/img/pages/banner-historia-zarate.webp",
+            "hero_tag": "Nuestras Raíces",
+            "section_title_sites": "Sitios Sagrados",
+            "timeline": [
+                {
+                    "era": "Era Chimila",
+                    "title": "El Gran Cacique Zárate",
+                    "description": "Líder supremo de los clanes Chimila. Fundó el asentamiento original y dio nombre al pueblo, siendo un nodo espiritual clave."
+                },
+                {
+                    "year": "1968",
+                    "title": "Las Compuertas de El Playón",
+                    "description": "Construcción de una obra inconclusa que alteró para siempre el equilibrio hídrico de la ciénaga, iniciando una lucha ecológica que dura hasta hoy."
+                },
+                {
+                    "year": "2000",
+                    "title": "Llega la Energía Eléctrica",
+                    "description": "La energía eléctrica llega finalmente al pueblo, transformando la vida cotidiana y conectando a Zárate con la modernidad tras años de espera."
+                },
+                {
+                    "year": "2025",
+                    "title": "Conectividad Digital",
+                    "description": "Instalación de la primera antena de telefonía móvil, rompiendo el aislamiento comunicacional y permitiendo por primera vez la señal en la zona."
+                }
+            ],
+            "sites": [
+                {
+                    "name": "La Isla",
+                    "description": "Sitio arqueológico sagrado donde afloran tinajas y orfebrería Chimila. Se cree que fue un centro ceremonial."
+                },
+                {
+                    "name": "Loma de los Chivos",
+                    "description": "Punto energético elevado donde se dice que aún se escucha el lamento del Cacique vigilando sus dominios."
+                },
+                {
+                    "name": "Cementerio Ancestral",
+                    "description": "Bóvedas centenarias con arquitectura única en la región, testimonio de las familias fundadoras."
+                }
+            ]
+        },
+        "ecology": {
+            "hero_image": "/img/pages/banner-ecologia-zarate.webp",
+            "hero_tag": "Biodiversidad",
+            "title": "El Tesoro Hídrico",
+            "subtitle": "Un ecosistema que respira",
+            "description": "El complejo cenagoso regula las aguas de los ríos Magdalena, Cauca y San Jorge. Es un tapete verde lleno de vida, vital para la seguridad alimentaria y el equilibrio climático de la región.",
+            "section_title_biodiversity": "Flora y Fauna",
+            "section_subtitle_biodiversity": "Los habitantes silenciosos de la ciénaga.",
+            "biodiversity": {
+                "section_title_flora": "Flora",
+                "section_title_fauna": "Fauna",
+                "flora": [
+                    {
+                        "name": "Taruya (Buchón)",
+                        "description": "Cubre el espejo de agua formando islas flotantes que purifican el agua pero dificultan la navegación."
+                    },
+                    {
+                        "name": "Campanos y Ceibas",
+                        "description": "Gigantes centenarios que custodian las orillas, ofreciendo sombra y refugio a cientos de especies."
+                    },
+                    {
+                        "name": "Palma Amarga",
+                        "description": "Materia prima esencial para los techos de las casas de bahareque, símbolo de la arquitectura local."
+                    },
+                    {
+                        "name": "Mangle de Agua Dulce",
+                        "description": "Protector de las orillas contra la erosión y nido para peces jóvenes."
+                    }
+                ],
+                "fauna": [
+                    {
+                        "name": "Bocachico",
+                        "description": "El rey del río y sustento principal de las familias pescadoras."
+                    },
+                    {
+                        "name": "Garza Real",
+                        "description": "Elegante ave blanca que domina el paisaje aéreo de la ciénaga."
+                    },
+                    {
+                        "name": "Manatí del Caribe",
+                        "description": "El gigante amable, especie amenazada que ocasionalmente se avista en las aguas tranquilas."
+                    },
+                    {
+                        "name": "Babillas y Morrocoyos",
+                        "description": "Reptiles guardianes de las aguas y el monte, parte integral del ciclo de vida."
+                    }
+                ]
+            },
+            "section_title_problems": "Desafíos Ambientales",
+            "problems": []
+        },
+        "culture": {
+            "hero_image": "/img/pages/banner-cultura-zarate-1.webp",
+            "hero_tag": "Tradición",
+            "title": "Cultura Anfibia",
+            "subtitle": "Entre el barro y la atarraya",
+            "section_title_traditions": "Tradiciones Vivas",
+            "traditions": [
+                {
+                    "title": "Pesca Artesanal",
+                    "description": "Faenas nocturnas que van desde el mediodía hasta el amanecer, usando atarrayas tejidas a mano.",
+                    "image": "/img/cultura/pesca-artesanal-zarate.webp"
+                },
+                {
+                    "title": "Arquitectura de Bahareque",
+                    "description": "Casas vivas hechas de barro, boñiga y madera, frescas y resistentes, una técnica ancestral indígena.",
+                    "image": "/img/cultura/arquitecrura-bahareque.webp"
+                },
+                {
+                    "title": "Concursos Tradicionales",
+                    "description": "Competencias de apertura de atarraya, canotaje y campeonatos de fútbol y microfútbol que unen al pueblo.",
+                    "image": "/img/cultura/cancha-de-futbol.webp"
+                }
+            ],
+            "spotlights": [
+                {
+                    "tag": "Orgullo Cultural",
+                    "title": "La Danza de los Indios Chimila",
+                    "subtitle": "Orgullo de Zárate y Plato",
+                    "description": "Esta manifestación cultural ha estado presente desde siempre en la memoria de nuestro pueblo, pero en los últimos años ha renacido con una fuerza imparable. Más que un baile, es un ritual de resistencia y orgullo que conecta a las nuevas generaciones con sus raíces ancestrales, transformando la historia en un espectáculo vibrante de identidad.",
+                    "points": [
+                        "Una tradición ancestral que se ha mantenido viva y se ha exaltado recientemente.",
+                        "Jóvenes que danzan con disciplina, sacrifico y un profundo amor por su cultura.",
+                        "Sueñan con llevar este legado al Festival del Hombre Caimán y al Carnaval de Barranquilla."
+                    ],
+                    "image": "/img/cultura/baile-indio-chimila-zarate.webp"
+                },
+                {
+                    "tag": "Fiesta Tradicional",
+                    "title": "Carnavales de Zárate",
+                    "subtitle": "Alegría, Color y Tradición",
+                    "description": "Una fiesta donde el pueblo entero se vuelca a las calles. Entre maicena, agua y disfraces, se celebra la vida y la alegría de ser zarateño. Es el momento del año donde las preocupaciones se olvidan y solo reina la felicidad compartida.",
+                    "points": [
+                        "La única y peculiar tradición de 'Matar el tigre con los gallegos'.",
+                        "Desfiles coloridos que recorren cada rincón del corregimiento.",
+                        "Música, baile y la unión de todas las generaciones."
+                    ],
+                    "image": "/img/cultura/carnavales-zarate-2.webp"
+                },
+                {
+                    "tag": "Tradición y Fe",
+                    "title": "Semana Santa",
+                    "subtitle": "Reflexión y Gastronomía",
+                    "description": "Zárate se convierte en un remanso de paz. Visitantes de la ciudad y pueblos vecinos llegan buscando la tranquilidad de la naturaleza y el sabor inigualable de nuestra cocina tradicional de temporada.",
+                    "points": [
+                        "Gastronomía única: dulces caseros, icotea guisada y variedad de pescados.",
+                        "Un ambiente de recogimiento rodeado de la majestuosa naturaleza.",
+                        "La hospitalidad zarateña recibiendo a todos con los brazos abiertos."
+                    ],
+                    "image": "/img/cultura/semana-santa-zarate.webp"
+                }
+            ],
+            "section_title_gastronomy": "Sabores del Río",
+            "gastronomy": [
+                {
+                    "name": "Viuda de Pescado",
+                    "description": "Bocachico cocido en sus jugos con yuca y plátano, el plato insignia."
+                },
+                {
+                    "name": "Bollo de Yuca",
+                    "description": "Acompañante perfecto, envuelto en hojas de maíz."
+                },
+                {
+                    "name": "Mazamorra de Maíz",
+                    "description": "Bebida refrescante y nutritiva, herencia de las abuelas."
+                }
+            ],
+            "cta_legends": {
+                "title": "Mitos y Leyendas",
+                "description": "Estas historias no son solo cuentos; son la memoria viva de un pueblo que explica su mundo a través de la magia. Descubre los relatos que caminan entre nosotros.",
+                "button_text": "Leer todas las leyendas",
+                "button_link": "/mitos"
+            }
+        },
+        "legends": {
+            "hero_image": "/img/pages/banner-mitos-leyendas-zarate.webp",
+            "hero_tag": "Tradición Oral",
+            "title": "Mitos y Leyendas",
+            "subtitle": "Relatos vivos que caminan entre nosotros.",
+            "featured": {
+                "tagline": "Tradición Oral",
+                "title": "La Verdad del 039",
+                "description": "\"Se la llevó el 039...\". Todos cantan el vallenato de Alejo Durán, pero la historia real pertenece a Alberto Lunas Almendrales, el verdadero autor. No fue un simple canto, fue el lamento por la muerte de Yolanda Ramírez, una mujer embarazada que falleció en un taxi atascado en el barro.",
+                "quote": "\"Los versos nacieron aquí, del dolor de nuestra gente, antes de que el acordeón los hiciera fiesta.\"",
+                "quote_author": "— Relato Local",
+                "cta_text": "Escuchar la Historia",
+                "cta_link": "https://www.youtube.com/watch?v=gd6DnHC-rLs&list=RDgd6DnHC-rLs&start_radio=1",
+                "image": "/img/mitos-leyendas/039.webp"
+            },
+            "items": [
+                {
+                    "slug": "cacique-zarate",
+                    "title": "Cacique Zárate",
+                    "description": "El máximo jefe de los clanes. Se dice que su espíritu aún vigila desde la Loma de los Chivos.",
+                    "full_story": "Cuenta la leyenda que el Cacique Zárate no murió, sino que se encantó en la Loma de los Chivos. En las noches de luna llena, se le ve observando su dominio, protegiendo a los pescadores que respetan la ciénaga y castigando a quienes la profanan. Hoy en día, esta tradición se mantiene viva a través de 'La Danza de los Indios Chimila', un proyecto cultural de la Institución Educativa César Meléndez López que rescata la esencia indígena y la transforma en un espectáculo de identidad y talento juvenil. Con más de una década de trayectoria, este grupo ha sido ovacionado en múltiples escenarios, soñando con llevar su orgullo cultural a grandes festivales nacionales.",
+                    "tag": "Fundador",
+                    "image": "/img/mitos-leyendas/cacique-zarate.webp"
+                },
+                {
+                    "slug": "hombre-caiman",
+                    "title": "El Hombre Caimán",
+                    "description": "Saúl Montenegro, el hombre que se transformó en caimán en estas mismas aguas para espiar a las bañistas.",
+                    "full_story": "Saúl Montenegro gustaba de espiar a las mujeres que se bañaban en el río. Un brujo le dio dos pócimas: una roja para volverse caimán y una blanca para volver a ser hombre. Un día, la pócima blanca se derramó y quedó con cabeza humana y cuerpo de caimán para siempre, condenado a vagar por el río Magdalena y sus ciénagas.",
+                    "tag": "Leyenda",
+                    "image": "/img/mitos-leyendas/hombre-caiman.webp"
+                },
+                {
+                    "slug": "la-isla",
+                    "title": "La Isla",
+                    "description": "Frente al pueblo, las tinajas y la orfebrería Chimila brotan de la tierra. Un museo a cielo abierto.",
+                    "full_story": "La Isla no es solo tierra firme; es un cementerio antiguo y un centro ceremonial. Cuando el nivel del agua baja, la tierra 'pare' tesoros: narigueras de oro, vasijas de barro y herramientas de piedra que demuestran la grandeza de los antiguos pobladores. Aún en la actualidad, los habitantes y pescadores siguen encontrando estos vestigios, manteniendo vivo el vínculo tangible con sus ancestros.",
+                    "tag": "Arqueología",
+                    "image": "/img/mitos-leyendas/la-isla.webp"
+                },
+                {
+                    "slug": "el-039",
+                    "title": "La Verdad del 039",
+                    "description": "La trágica historia real detrás del famoso vallenato.",
+                    "full_story": "Aunque Alejo Durán la hizo famosa, la canción 'El 039' fue compuesta originalmente por Alberto Lunas Almendrales (Q.E.P.D.), quien trabajaba como aserrador de madera junto a Durán. Alejo, al escuchar la composición, se apropió de ella y la registró a su nombre, un hecho conocido por los locales. La historia narra una tragedia real: la muerte de Yolanda Ramírez, hermana de Rafael Ramírez de Aguas Vivas. Yolanda, quien estaba embarazada, falleció dentro del taxi 039 que intentaba llevarla al hospital pero quedó atascado en los caminos intransitables de la región.",
+                    "tag": "Historia",
+                    "image": "/img/mitos-leyendas/039.webp"
+                },
+                {
+                    "slug": "indios-cimarrones",
+                    "title": "Los Indios Cimarrones",
+                    "description": "Seres míticos que aparecen en islas flotantes.",
+                    "full_story": "Se dice que en los 'embalsados' (islas flotantes de vegetación) viven los Indios Cimarrones. No tienen contacto con el tiempo moderno y protegen el corazón de la ciénaga. Solo se dejan ver por aquellos de corazón puro.",
+                    "tag": "Mito",
+                    "image": "/img/mitos-leyendas/indios-cimarrones.webp"
+                },
+                {
+                    "slug": "loma-chivos",
+                    "title": "Loma de los Chivos",
+                    "description": "El lugar sagrado donde el Cacique Zárate se encantó para vigilar eternamente a su pueblo.",
+                    "full_story": "Conocida como 'La Chivera', esta elevación no es solo un accidente geográfico, es el trono eterno del Cacique. Se dice que allí no murió, sino que trascendió a otro plano para convertirse en el guardián perpetuo de la ciénaga. Los pescadores evitan pasar cerca en horas prohibidas, pues se escuchan tambores y lamentos que recuerdan que esta tierra tiene dueño ancestral.",
+                    "tag": "Sagrado",
+                    "image": "/img/mitos-leyendas/loma-chivos.webp"
+                },
+                {
+                    "slug": "llorona",
+                    "title": "La Llorona del Río",
+                    "description": "Espíritu que busca a sus hijos en las orillas.",
+                    "full_story": "En las noches de tormenta, se escucha un lamento desgarrador que se mezcla con el viento. Es la Llorona, buscando a los hijos que el río se llevó. Los pescadores saben que cuando ella llora, es mejor no salir a faenar.",
+                    "tag": "Espíritu",
+                    "image": "/img/mitos-leyendas/llorona.webp"
+                }
+            ]
+        },
+        "future": {
+            "title": "Los Ricos Pobres",
+            "subtitle": "La Paradoja de Zárate",
+            "description": "Investigación sobre el deterioro del complejo cenagoso y la lucha de un pueblo.",
+            "content": [
+                {
+                    "heading": "Problemática Ambiental",
+                    "text": "La ceguera de la dirigencia ha ignorado la importancia vital de este ecosistema. La <strong>sedimentación</strong>, producida por el río y los desechos, asfixia la ciénaga. A esto se suma la obra inconclusa de las <strong>Compuertas de El Playón (1968)</strong>, que interrumpió el flujo natural del agua, impidiendo su oxigenación y regulación."
+                },
+                {
+                    "heading": "Consecuencias Devastadoras",
+                    "text": "El Fenómeno de El Niño y la sequía convirtieron la riqueza hídrica en un desastre ecológico. Se agotaron la pesca, la agricultura y hasta el agua potable. La comunidad sobrevive entre <strong>falsas promesas políticas</strong>, vías intransitables y servicios públicos precarios."
+                },
+                {
+                    "heading": "El Clamor de un Pueblo",
+                    "text": "En invierno, el barro aísla; en verano, la sequía mata. Zárate espera un liderazgo real que solucione esta crisis histórica. La sedimentación es tal que, incluso con lluvias, el agua se evapora rápidamente entre la maleza, dejando sed donde debería haber vida."
+                },
+                {
+                    "heading": "Reflexión: ¿Por qué Ricos Pobres?",
+                    "text": "Son <strong>RICOS</strong> porque heredaron un paraíso: una ciénaga inmensa, tierras fértiles y una historia ancestral única. Pero son <strong>POBRES</strong> porque el olvido estatal y la falta de infraestructura les impiden disfrutar de esa riqueza. Viven sobre un tesoro natural, pero carecen de lo básico para vivir dignamente."
+                }
+            ],
+            "cta": {
+                "title": "Sé parte del cambio",
+                "description": "Apoya el ecoturismo y la recuperación. La fundación FUZOCIEZÁRATE lucha por recuperar el flujo del agua.",
+                "button_text": "Ver Proyectos",
+                "button_link": "/ecologia"
+            }
+        },
+        "gallery": [
+            {
+                "url": "https://placehold.co/800x600/006994/ffffff?text=Atardecer+Zarate",
+                "caption": "El sol cayendo sobre la ciénaga",
+                "category": "Paisaje"
+            },
+            {
+                "url": "https://placehold.co/800x600/8B5A2B/ffffff?text=Casa+Bahareque",
+                "caption": "Arquitectura tradicional de barro",
+                "category": "Arquitectura"
+            },
+            {
+                "url": "https://placehold.co/800x600/2E8B57/ffffff?text=Pescadores",
+                "caption": "La faena diaria",
+                "category": "Gente"
+            },
+            {
+                "url": "https://placehold.co/800x600/DAA520/ffffff?text=Loma+de+los+Chivos",
+                "caption": "Sitio sagrado ancestral",
+                "category": "Historia"
+            },
+            {
+                "url": "https://placehold.co/800x600/556B2F/ffffff?text=Garzas",
+                "caption": "Garzas reales en vuelo",
+                "category": "Naturaleza"
+            },
+            {
+                "url": "https://placehold.co/800x600/FF7043/ffffff?text=Cocina",
+                "caption": "Preparando viuda de pescado",
+                "category": "Cultura"
+            }
+        ],
+        "footer": {
+            "logo": "/img/escudo-zarate.png",
+            "title": "Corregimiento de Zárate",
+            "subtitle": "Plato, Magdalena",
+            "social": [
+                {
+                    "name": "Facebook",
+                    "url": "#",
+                    "icon": "FB"
+                },
+                {
+                    "name": "Instagram",
+                    "url": "#",
+                    "icon": "IG"
+                }
+            ],
+            "copyright": "Zárate, Magdalena. Todos los derechos reservados - Desarrollado por <a href=\"https://www.linkedin.com/in/luis-fernando-almendrales-ferreira-11b1081b2/\" target=\"_blank\" class=\"text-zarate-green font-semibold transition-colors\">Luifer Almendrales</a> con ❤️"
+        }
+    }
+}

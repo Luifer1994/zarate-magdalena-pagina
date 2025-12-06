@@ -1,0 +1,44 @@
+---
+interface TimelineEvent {
+  year?: string;
+  title: string;
+  description: string;
+}
+
+interface Props {
+  events: TimelineEvent[];
+}
+
+const { events } = Astro.props;
+---
+
+<div class="relative max-w-4xl mx-auto">
+  <!-- Vertical Line -->
+  <div class="absolute left-4 md:left-1/2 top-0 bottom-0 w-1 bg-accent/30 md:-ml-0.5 rounded-full"></div>
+
+  <div class="space-y-12">
+    {events.map((event, index) => (
+      <div class={`relative flex items-center md:justify-between ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
+        
+        <!-- Dot -->
+        <div class="absolute left-4 md:left-1/2 w-4 h-4 bg-accent rounded-full border-4 border-white shadow md:-ml-2 z-10 transform -translate-x-1.5 md:translate-x-0"></div>
+
+        <!-- Content Spacer for Desktop -->
+        <div class="hidden md:block w-5/12"></div>
+
+        <!-- Card -->
+        <div class="w-full md:w-5/12 pl-12 md:pl-0">
+          <div class={`bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow border-l-4 border-primary relative ${index % 2 === 0 ? 'md:text-left' : 'md:text-right md:border-l-0 md:border-r-4'}`}>
+            {event.year && (
+              <span class="inline-block px-3 py-1 bg-background text-primary font-bold rounded-full text-sm mb-2">
+                {event.year}
+              </span>
+            )}
+            <h3 class="text-xl font-heading font-bold text-text mb-2">{event.title}</h3>
+            <p class="text-text/70 text-sm">{event.description}</p>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>

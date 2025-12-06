@@ -1,0 +1,123 @@
+---
+interface Point {
+  x: number;
+  y: number;
+  title: string;
+  description: string;
+}
+
+interface Props {
+  image: string;
+  points: Point[];
+  ctaLink: string;
+}
+
+const { image, points, ctaLink } = Astro.props;
+---
+
+<div class="relative w-full h-96 rounded-[2rem] overflow-hidden shadow-2xl group interactive-map-container">
+  <!-- Map Image -->
+    <img
+      src={image}
+      alt="Mapa Interactivo"
+      class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 "
+    />
+ 
+
+  <!-- Overlay Gradient -->
+  <div class="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors duration-500 pointer-events-none"></div>
+
+  <!-- Hotspots -->
+  {points.map((point, index) => (
+    <div
+      class="absolute w-8 h-8 -ml-4 -mt-4 cursor-pointer z-20 hotspot"
+      style={`left: ${point.x}%; top: ${point.y}%;`}
+      data-title={point.title}
+      data-desc={point.description}
+    >
+      <!-- Pulsing Ring -->
+      <div class="absolute inset-0 bg-zarate-green rounded-full animate-ping opacity-75"></div>
+      <!-- Core Dot -->
+      <div class="absolute inset-0 bg-white rounded-full border-4 border-zarate-green shadow-lg transform transition-transform hover:scale-125"></div>
+      
+      <!-- Tooltip -->
+      <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-48 bg-white p-3 rounded-xl shadow-xl opacity-0 pointer-events-none transition-all duration-300 transform translate-y-2 hotspot-tooltip z-30">
+        <h4 class="text-zarate-blue font-bold text-sm mb-1">{point.title}</h4>
+        <p class="text-slate-500 text-xs leading-tight">{point.description}</p>
+        <!-- Arrow -->
+        <div class="absolute top-full left-1/2 -translate-x-1/2 -mt-1 border-4 border-transparent border-t-white"></div>
+      </div>
+    </div>
+  ))}
+
+  <!-- Static Label (Bottom Right) -->
+  <a 
+    href={ctaLink} 
+    target="_blank" 
+    class="absolute bottom-4 right-4 z-20 hover:scale-105 transition-transform cursor-pointer"
+  >
+    <div class="bg-white/90 backdrop-blur px-3 py-1 rounded-lg shadow-lg text-xs font-bold text-zarate-blue flex items-center gap-2 animate-float">
+      <span>📍</span> Interactúa con el mapa
+    </div>
+  </a>
+</div>
+
+<script>
+  // Simple logic to handle tooltip visibility on click/hover if needed, 
+  // but CSS hover is often enough. Let's add a click handler for mobile support.
+  
+  const hotspots = document.querySelectorAll('.hotspot');
+
+  hotspots.forEach(spot => {
+    spot.addEventListener('click', (e) => {
+      e.stopPropagation(); // Prevent closing immediately
+      // Close others
+      document.querySelectorAll('.hotspot-tooltip').forEach(t => {
+        t.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+        t.classList.add('opacity-0', 'translate-y-2', 'pointer-events-none');
+      });
+
+      // Toggle current
+      const tooltip = spot.querySelector('.hotspot-tooltip');
+      if (tooltip) {
+        tooltip.classList.remove('opacity-0', 'translate-y-2', 'pointer-events-none');
+        tooltip.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
+      }
+    });
+  });
+
+  // Close on click outside
+  document.addEventListener('click', () => {
+    document.querySelectorAll('.hotspot-tooltip').forEach(t => {
+        t.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+        t.classList.add('opacity-0', 'translate-y-2', 'pointer-events-none');
+    });
+  });
+</script>
+
+<style>
+  /* Desktop Hover Support */
+  @media (min-width: 768px) {
+    .hotspot:hover .hotspot-tooltip {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+  }
+
+  @keyframes float {
+    0% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+</style>

@@ -1,0 +1,30 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  icon?: string;
+  image?: string;
+  delay?: string;
+}
+
+const { title, description, icon, image, delay = "0" } = Astro.props;
+---
+
+<div 
+  class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border-b-4 border-accent h-full flex flex-col items-center text-center group"
+  style={`animation-delay: ${delay}ms`}
+>
+  {image ? (
+    <div class="mb-6 overflow-hidden rounded-xl w-full h-48">
+      <img src={image} alt={title} class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" />
+    </div>
+  ) : icon ? (
+    <div class="w-16 h-16 bg-background rounded-full flex items-center justify-center mb-6 text-3xl text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+      <i class={`fas fa-${icon}`}></i> <!-- Assuming FontAwesome or similar, or replace with SVG slot -->
+      <span class="text-3xl">{icon}</span> <!-- Placeholder if emoji/text passed -->
+    </div>
+  ) : null}
+
+  <h3 class="text-2xl font-heading font-bold text-primary mb-3">{title}</h3>
+  <p class="text-text/80 font-body leading-relaxed">{description}</p>
+</div>

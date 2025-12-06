@@ -1,0 +1,291 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Navigation from "../components/Navigation.astro";
+import zarateData from "../data/zarate.json";
+
+const { culture } = zarateData.content;
+---
+
+<Layout
+  title={`Cultura - ${zarateData.site_config.title}`}
+  image={culture.hero_image}
+>
+  <Navigation />
+
+  <main>
+    <!-- Page Hero -->
+    <section
+      class="relative h-[60vh] flex items-center justify-center overflow-hidden"
+    >
+      <div class="absolute inset-0 z-0">
+        <img
+          src={culture.hero_image}
+          alt="Cultura Zárate"
+          class="w-full h-full object-cover page-hero-bg scale-110"
+        />
+        <div
+          class="absolute inset-0 bg-gradient-to-b from-black/50 to-zarate-blue/60 mix-blend-multiply"
+        >
+        </div>
+      </div>
+      <div class="relative z-10 text-center text-white max-w-4xl px-4 mt-16">
+        <span
+          class="text-zarate-green font-bold tracking-widest uppercase mb-4 block animate-fade-in bg-white/20 inline-block px-4 py-1 rounded-full backdrop-blur-sm"
+          >{culture.hero_tag}</span
+        >
+        <h1
+          class="font-serif text-5xl md:text-7xl mb-6 leading-tight animate-fade-in delay-100"
+        >
+          {culture.title}
+        </h1>
+        <p
+          class="text-lg md:text-xl text-white/90 max-w-2xl mx-auto font-light animate-fade-in delay-200"
+        >
+          {culture.subtitle}
+        </p>
+      </div>
+      <div class="wave-bottom">
+        <svg
+          data-name="Layer 1"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 1200 120"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+            fill="#F0F9FF"></path>
+        </svg>
+      </div>
+    </section>
+
+    <!-- Spotlights: La Danza, Carnavales, Semana Santa -->
+    {
+      culture.spotlights &&
+        culture.spotlights.map((spotlight, index) => (
+          <section
+            class={`py-24 relative overflow-hidden ${index % 2 === 1 ? "bg-zarate-blue text-white" : "bg-white text-slate-800"}`}
+          >
+            <div class="absolute inset-0 opacity-10">
+              <img
+                src={spotlight.image}
+                class="w-full h-full object-cover grayscale"
+              />
+            </div>
+            <div
+              class={`max-w-7xl mx-auto px-6 relative z-10 flex flex-col md:flex-row items-center gap-12 ${index % 2 === 1 ? "md:flex-row-reverse" : ""}`}
+            >
+              <div class="w-full md:w-1/2">
+                <span
+                  class={`font-bold tracking-widest uppercase mb-4 block inline-block px-4 py-1 rounded-full backdrop-blur-sm ${index % 2 === 1 ? "text-zarate-green bg-white/10" : "text-zarate-earth bg-zarate-earth/10"}`}
+                >
+                  {spotlight.tag || "Orgullo Cultural"}
+                </span>
+                <h2 class="text-4xl md:text-5xl font-serif mb-6 leading-tight">
+                  {spotlight.title}
+                </h2>
+                <p
+                  class={`text-xl mb-8 font-light leading-relaxed ${index % 2 === 1 ? "text-white/90" : "text-slate-600"}`}
+                >
+                  {spotlight.description}
+                </p>
+                <ul class="space-y-4">
+                  {spotlight.points.map((point) => (
+                    <li class="flex items-start gap-3">
+                      <span
+                        class={`text-xl mt-1 ${index % 2 === 1 ? "text-zarate-green" : "text-zarate-earth"}`}
+                      >
+                        ✦
+                      </span>
+                      <span
+                        class={
+                          index % 2 === 1 ? "text-slate-300" : "text-slate-600"
+                        }
+                      >
+                        {point}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div class="w-full md:w-1/2">
+                <div
+                  class={`relative rounded-[2rem] overflow-hidden shadow-2xl border-4 rotate-3 hover:rotate-0 transition-transform duration-500 ${index % 2 === 1 ? "border-white/10" : "border-slate-100"}`}
+                >
+                  <img
+                    src={spotlight.image}
+                    alt={spotlight.title}
+                    class="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
+        ))
+    }
+
+    <!-- Traditions -->
+    <section class="py-24 bg-zarate-light">
+      <div class="max-w-7xl mx-auto px-6">
+        <h2
+          class="text-4xl font-serif text-center text-zarate-earth mb-16 gsap-fade-up"
+        >
+          {culture.section_title_traditions}
+        </h2>
+        <div class="grid md:grid-cols-3 gap-8">
+          {
+            culture.traditions.map((tradition, index) => (
+              <div class="bg-white rounded-[2rem] shadow-lg hover:-translate-y-2 transition-transform duration-300 tradition-card opacity-0 translate-y-10 overflow-hidden group">
+                <div class="h-48 overflow-hidden relative">
+                  <img
+                    src={tradition.image}
+                    alt={tradition.title}
+                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                  <div class="absolute bottom-4 left-6">
+                    <h3 class="text-xl font-serif text-white font-bold shadow-sm">
+                      {tradition.title}
+                    </h3>
+                  </div>
+                </div>
+                <div class="p-6">
+                  <p class="text-slate-600 leading-relaxed text-sm">
+                    {tradition.description}
+                  </p>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- Gastronomy -->
+    <section class="py-24 bg-zarate-earth/5 relative">
+      <div class="max-w-6xl mx-auto px-6">
+        <h2
+          class="text-4xl font-serif text-center text-zarate-earth mb-16 gsap-fade-up"
+        >
+          {culture.section_title_gastronomy}
+        </h2>
+
+        <div class="grid md:grid-cols-3 gap-8">
+          {
+            culture.gastronomy.map((dish, index) => (
+              <div class="bg-white p-8 rounded-[2rem] shadow-lg hover:-translate-y-2 transition-transform duration-300 gastronomy-card opacity-0 translate-y-10 border-b-4 border-zarate-earth">
+                <div class="text-4xl mb-4">🍲</div>
+                <h3 class="text-2xl font-serif text-zarate-blue mb-2 font-bold">
+                  {dish.name}
+                </h3>
+                <p class="text-slate-600">{dish.description}</p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- Legends CTA -->
+    <section class="py-24 bg-white relative overflow-hidden">
+      <div class="max-w-4xl mx-auto px-6 text-center">
+        <h2 class="text-4xl font-serif text-zarate-earth mb-6 gsap-fade-up">
+          {culture.cta_legends.title}
+        </h2>
+        <p class="text-slate-500 text-lg leading-relaxed mb-10">
+          {culture.cta_legends.description}
+        </p>
+        <a
+          href={culture.cta_legends.button_link}
+          class="inline-block bg-zarate-earth text-white px-8 py-3 rounded-full font-bold hover:bg-zarate-earth/90 transition-transform hover:scale-105 shadow-lg"
+        >
+          {culture.cta_legends.button_text}
+        </a>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<script>
+  import gsap from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  document.addEventListener("astro:page-load", () => {
+    // Check if we are on the culture page (or a page with .page-hero-bg)
+    if (!document.querySelector(".page-hero-bg")) return;
+
+    // Hero Parallax
+    gsap.to(".page-hero-bg", {
+      scrollTrigger: {
+        trigger: "main",
+        start: "top top",
+        end: "bottom top",
+        scrub: true,
+      },
+      y: 50,
+      scale: 1.05,
+    });
+
+    // Tradition Cards Stagger
+    const traditionCards = document.querySelectorAll(".tradition-card");
+    if (traditionCards.length > 0) {
+      gsap.fromTo(
+        ".tradition-card",
+        { y: 50, opacity: 0 },
+        {
+          scrollTrigger: {
+            trigger: ".tradition-card",
+            start: "top 80%",
+          },
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.2,
+          ease: "back.out(1.7)",
+        }
+      );
+    }
+
+    // Gastronomy Cards Stagger
+    const gastronomyCards = document.querySelectorAll(".gastronomy-card");
+    if (gastronomyCards.length > 0) {
+      gsap.fromTo(
+        ".gastronomy-card",
+        { y: 50, opacity: 0 },
+        {
+          scrollTrigger: {
+            trigger: ".gastronomy-card",
+            start: "top 80%",
+          },
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.2,
+          ease: "back.out(1.7)",
+        }
+      );
+    }
+
+    // Legend Items
+    const legendItems = gsap.utils.toArray(".legend-item");
+    if (legendItems.length > 0) {
+      legendItems.forEach((element: any) => {
+        gsap.fromTo(
+          element,
+          { y: 50, opacity: 0 },
+          {
+            scrollTrigger: {
+              trigger: element,
+              start: "top 75%",
+            },
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            ease: "power3.out",
+          }
+        );
+      });
+    }
+  });
+</script>

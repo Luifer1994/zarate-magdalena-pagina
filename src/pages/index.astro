@@ -1,0 +1,374 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Navigation from "../components/Navigation.astro";
+import Hero from "../components/Hero.astro";
+
+import InteractiveMap from "../components/InteractiveMap.astro";
+import Gallery from "../components/Gallery.astro";
+import zarateData from "../data/zarate.json";
+
+const { content } = zarateData;
+---
+
+<Layout
+  title={zarateData.site_config.title}
+  description={zarateData.site_config.description}
+  image="/img/escudo-zarate.png"
+>
+  <Navigation />
+
+  <main>
+    <Hero />
+
+    <!-- Territorio Section -->
+    <section
+      id="territorio"
+      class="py-24 relative bg-zarate-light overflow-hidden"
+    >
+      <div
+        class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center"
+      >
+        <div class="gsap-fade-right opacity-0 -translate-x-10">
+          <div
+            class="inline-block bg-blue-100 text-zarate-blue px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wide mb-6"
+          >
+            {content.territory.tagline}
+          </div>
+          <h2
+            class="font-serif text-[2.8rem] text-zarate-blue mb-6"
+            set:html={content.territory.title}
+          />
+          <p
+            class="text-lg text-slate-600 mb-6 leading-relaxed"
+            set:html={content.territory.description}
+          />
+          <ul class="space-y-4 mb-8">
+            {
+              content.territory.features.map((feature) => (
+                <li class="flex items-center gap-3">
+                  <span class="w-2 h-2 rounded-full bg-zarate-green" />
+                  <span class="text-slate-600">{feature}</span>
+                </li>
+              ))
+            }
+          </ul>
+          <a
+            href={content.territory.cta_link}
+            target="_blank"
+            class="text-zarate-blue font-bold border-b-2 border-zarate-green pb-1 hover:text-zarate-green transition"
+          >
+            {content.territory.cta_text} &rarr;
+          </a>
+        </div>
+
+        <div class="relative gsap-fade-left opacity-0 translate-x-10">
+          <div
+            class="transform rotate-2 hover:rotate-0 transition-transform duration-500 map-rotate-container"
+          >
+            <InteractiveMap
+              image="/img/cienaga/mapa-cienaga-zarate.webp"
+              points={content.territory.map_points}
+              ctaLink={content.territory.cta_link}
+            />
+          </div>
+          <div
+            class="absolute -top-10 -right-10 w-32 h-32 bg-zarate-green/20 rounded-full blur-2xl"
+          >
+          </div>
+          <div
+            class="absolute -bottom-10 -left-10 w-40 h-40 bg-zarate-blue/20 rounded-full blur-2xl"
+          >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mitos y Leyendas Section -->
+    <section id="mitos" class="py-24 bg-white relative">
+      <div class="wave-top transform rotate-180 -mt-1">
+        <svg
+          data-name="Layer 1"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 1200 120"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+            fill="#F0F9FF"></path>
+        </svg>
+      </div>
+
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-16">
+          <h2 class="font-serif text-4xl md:text-5xl text-zarate-earth mb-4">
+            {content.legends.title}
+          </h2>
+          <p class="text-slate-500 max-w-2xl mx-auto">
+            {content.legends.subtitle}
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+          {
+            content.legends.items.slice(0, 3).map((item) => (
+              <div class="bg-zarate-light rounded-[2rem] p-6 hover:-translate-y-2 transition-transform duration-300 shadow-lg border border-transparent hover:border-zarate-earth/20 card-stagger opacity-0 translate-y-10">
+                <div class="h-64 md:h-80 rounded-3xl overflow-hidden mb-6 relative group">
+                  <img
+                    src={item.image}
+                    class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+                    alt={item.title}
+                  />
+                  <div class="absolute top-4 left-4 bg-zarate-earth text-white text-xs font-bold px-3 py-1 rounded-full">
+                    {item.tag}
+                  </div>
+                </div>
+                <h3 class="font-serif text-2xl text-slate-800 mb-2">
+                  {item.title}
+                </h3>
+                <p class="text-slate-500 text-sm leading-relaxed mb-4">
+                  {item.description}
+                </p>
+                <a
+                  href={`/mitos#${item.slug}`}
+                  class="text-zarate-earth font-bold text-sm flex items-center gap-2"
+                >
+                  Leer historia completa <span class="text-lg">→</span>
+                </a>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- Leyendas Section -->
+    <section
+      id="leyendas"
+      class="py-32 bg-slate-900 text-white relative overflow-hidden"
+    >
+      <div class="absolute inset-0 opacity-20">
+        <img
+          src={content.legends.featured.image}
+          class="w-full h-full object-cover grayscale"
+        />
+      </div>
+
+      <div
+        class="max-w-5xl mx-auto px-6 relative z-10 flex flex-col md:flex-row items-center gap-12"
+      >
+        <div class="md:w-1/2">
+          <span
+            class="text-zarate-green font-bold tracking-widest uppercase mb-2 block"
+            >{content.legends.featured.tagline}</span
+          >
+          <h2 class="font-serif text-5xl mb-6 text-white">
+            {content.legends.featured.title}
+          </h2>
+          <p class="text-slate-300 text-lg mb-6 leading-relaxed">
+            {content.legends.featured.description}
+          </p>
+          <div
+            class="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/10"
+          >
+            <p class="italic font-serif text-xl">
+              {content.legends.featured.quote}
+            </p>
+            <p class="text-right text-sm text-zarate-green mt-2">
+              {content.legends.featured.quote_author}
+            </p>
+          </div>
+          <a
+            href={content.legends.featured.cta_link}
+            class="inline-block mt-8 bg-zarate-green text-white px-8 py-3 rounded-full font-bold hover:bg-lime-600 transition"
+            >{content.legends.featured.cta_text}</a
+          >
+        </div>
+        <div class="md:w-1/2 flex justify-center">
+          <div
+            class="w-64 h-64 rounded-full border-4 border-white/20 flex items-center justify-center relative animate-spin-slow"
+          >
+            <div
+              class="w-56 h-56 rounded-full bg-gradient-to-tr from-zarate-blue to-zarate-green opacity-80 blur-xl absolute"
+            >
+            </div>
+            <a
+              href={content.legends.featured.cta_link}
+              class="w-full h-full rounded-full border border-white/30 flex items-center justify-center bg-black/50 backdrop-blur z-10 hover:scale-110 transition cursor-pointer group"
+              target="_blank"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-16 w-16 text-white group-hover:scale-110 transition"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1"
+                  d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
+                ></path>
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1"
+                  d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <Gallery folderPath="/img/galeria-zarate" count={6} />
+
+    <!-- Futuro / CTA Section -->
+    <section id="futuro" class="py-24 bg-zarate-green/10 relative">
+      <div class="max-w-4xl mx-auto px-6 text-center">
+        <h2 class="font-serif text-4xl text-zarate-blue mb-2">
+          {content.future.title}
+        </h2>
+        <h3
+          class="text-xl text-zarate-green font-bold mb-4 uppercase tracking-wider"
+        >
+          {content.future.subtitle}
+        </h3>
+        <p class="text-slate-600 mb-12 text-lg italic">
+          {content.future.description}
+        </p>
+
+        <div class="grid gap-8 mb-12 text-left">
+          {
+            content.future.content.map((block) => (
+              <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                <h4 class="font-bold text-zarate-blue text-xl mb-3">
+                  {block.heading}
+                </h4>
+                <p
+                  class="text-slate-600 leading-relaxed"
+                  set:html={block.text}
+                />
+              </div>
+            ))
+          }
+        </div>
+
+        <div
+          class="bg-white p-8 rounded-[2.5rem] shadow-xl flex flex-col md:flex-row items-center justify-between gap-6 border-b-8 border-zarate-blue"
+        >
+          <div class="text-left">
+            <h3 class="font-bold text-2xl text-slate-800">
+              {content.future.cta.title}
+            </h3>
+            <p class="text-slate-500">{content.future.cta.description}</p>
+          </div>
+          <div class="flex gap-4">
+            <a
+              href={content.future.cta.button_link}
+              class="bg-zarate-blue text-white px-8 py-4 rounded-xl font-bold hover:bg-slate-700 transition shadow-lg shadow-blue-200"
+            >
+              {content.future.cta.button_text}
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<script>
+  import gsap from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  document.addEventListener("astro:page-load", () => {
+    // Check if we are on the index page (or a page with #territorio)
+    if (!document.getElementById("territorio")) return;
+
+    // Fade In Right
+    const fadeRightElements = gsap.utils.toArray(".gsap-fade-right");
+    if (fadeRightElements.length > 0) {
+      fadeRightElements.forEach((element: any) => {
+        gsap.fromTo(
+          element,
+          { x: -50, opacity: 0 },
+          {
+            scrollTrigger: {
+              trigger: element,
+              start: "top 80%",
+              toggleActions: "play none none reverse",
+            },
+            x: 0,
+            opacity: 1,
+            duration: 1,
+            ease: "power3.out",
+          }
+        );
+      });
+    }
+
+    // Fade In Left
+    const fadeLeftElements = gsap.utils.toArray(".gsap-fade-left");
+    if (fadeLeftElements.length > 0) {
+      fadeLeftElements.forEach((element: any) => {
+        gsap.fromTo(
+          element,
+          { x: 50, opacity: 0 },
+          {
+            scrollTrigger: {
+              trigger: element,
+              start: "top 80%",
+              toggleActions: "play none none reverse",
+            },
+            x: 0,
+            opacity: 1,
+            duration: 1,
+            ease: "power3.out",
+          }
+        );
+      });
+    }
+
+    // Stagger Cards
+    const staggerCards = document.querySelectorAll(".card-stagger");
+    if (staggerCards.length > 0) {
+      gsap.fromTo(
+        ".card-stagger",
+        { y: 100, opacity: 0 },
+        {
+          scrollTrigger: {
+            trigger: "#mitos",
+            start: "top 70%",
+          },
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.2,
+          ease: "back.out(1.7)",
+        }
+      );
+    }
+
+    // Map Rotation on Mobile Scroll
+    const mapContainer = document.querySelector(".map-rotate-container");
+    if (mapContainer) {
+      ScrollTrigger.matchMedia({
+        "(max-width: 768px)": function () {
+          gsap.to(".map-rotate-container", {
+            scrollTrigger: {
+              trigger: ".map-rotate-container",
+              start: "top 60%",
+              toggleActions: "play none none reverse",
+            },
+            rotation: 0,
+            duration: 0.8,
+            ease: "power2.out",
+          });
+        },
+      });
+    }
+  });
+</script>

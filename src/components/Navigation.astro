@@ -1,0 +1,186 @@
+---
+import zarateData from "../data/zarate.json";
+
+const navItems = [
+  { name: "Bienvenidos", href: "/" },
+  { name: "Historia", href: "/historia" },
+  { name: "Mitos y Leyendas", href: "/mitos" },
+  { name: "Cultura", href: "/cultura" },
+  { name: "Ecología", href: "/ecologia" },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<nav
+  class="fixed top-0 w-full z-50 p-4 md:p-6 transition-all duration-300"
+  id="navbar"
+>
+  <div
+    class="max-w-7xl mx-auto flex justify-between items-center bg-white/90 backdrop-blur-md px-6 py-3 rounded-full shadow-lg border border-white/50 relative"
+  >
+    <a href="/" class="flex items-center gap-2 group z-50 relative">
+      <img
+        src="/img/escudo-zarate.png"
+        alt="Logo"
+        class="w-auto h-10 md:h-14"
+      />
+      <span class="font-bold text-sm md:text-lg text-zarate-blue tracking-tight"
+        >Zárate, Magdalena</span
+      >
+    </a>
+
+    <!-- Desktop Menu -->
+    <div class="hidden md:flex gap-8 text-sm font-semibold text-slate-500">
+      {
+        navItems.map((item) => {
+          const isActive =
+            currentPath === item.href ||
+            (item.href !== "/" && currentPath.startsWith(item.href));
+          return (
+            <a
+              href={item.href}
+              class={`transition-colors relative group ${isActive ? "text-zarate-green" : "hover:text-zarate-green"}`}
+            >
+              {item.name}
+              <span
+                class={`absolute -bottom-1 left-0 h-0.5 bg-zarate-green transition-all duration-300 ${isActive ? "w-full" : "w-0 group-hover:w-full"}`}
+              />
+            </a>
+          );
+        })
+      }
+    </div>
+
+    <div class="hidden md:block">
+      <a
+        href="/galeria"
+        class="bg-zarate-green text-white px-5 py-2 rounded-full text-sm font-bold hover:bg-lime-600 transition-transform hover:scale-105 shadow-lg shadow-lime-200"
+      >
+        Visitar
+      </a>
+    </div>
+
+    <!-- Mobile Menu Button -->
+    <button
+      id="mobile-menu-btn"
+      class="md:hidden z-50 relative text-zarate-blue focus:outline-none"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-8 w-8"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M4 6h16M4 12h16m-7 6h7"></path>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile Menu Overlay -->
+  <div
+    id="mobile-menu"
+    class="fixed inset-0 bg-white/95 backdrop-blur-xl z-40 flex flex-col items-center justify-center space-y-8 opacity-0 pointer-events-none transition-opacity duration-300"
+  >
+    {
+      navItems.map((item) => {
+        const isActive =
+          currentPath === item.href ||
+          (item.href !== "/" && currentPath.startsWith(item.href));
+        return (
+          <a
+            href={item.href}
+            class={`text-2xl font-serif font-bold mobile-link transition-colors ${isActive ? "text-zarate-green" : "text-zarate-blue"}`}
+          >
+            {item.name}
+          </a>
+        );
+      })
+    }
+    <a
+      href="/galeria"
+      class="bg-zarate-green text-white px-8 py-3 rounded-full text-lg font-bold shadow-lg shadow-lime-200 mobile-link"
+      >Visitar</a
+    >
+  </div>
+</nav>
+
+<script>
+  import gsap from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  document.addEventListener("astro:page-load", () => {
+    // Navbar dynamic padding on scroll
+    ScrollTrigger.create({
+      start: "top -50",
+      end: 99999,
+      toggleClass: { className: "py-2", targets: "#navbar" },
+    });
+
+    // Remove initial padding class on scroll
+    ScrollTrigger.create({
+      start: "top -50",
+      onEnter: () =>
+        document.getElementById("navbar")?.classList.remove("py-6"),
+      onLeaveBack: () =>
+        document.getElementById("navbar")?.classList.add("py-6"),
+    });
+
+    // Mobile Menu Logic
+    const menuBtn = document.getElementById("mobile-menu-btn");
+    const mobileMenu = document.getElementById("mobile-menu");
+    const mobileLinks = document.querySelectorAll(".mobile-link");
+    let isMenuOpen = false;
+
+    menuBtn?.addEventListener("click", () => {
+      isMenuOpen = !isMenuOpen;
+
+      if (isMenuOpen) {
+        // Open Menu
+        mobileMenu?.classList.remove("opacity-0", "pointer-events-none");
+        gsap.fromTo(
+          mobileLinks,
+          { y: 20, opacity: 0 },
+          { y: 0, opacity: 1, stagger: 0.1, duration: 0.4, ease: "power2.out" }
+        );
+        // Change Icon to X
+        menuBtn.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            `;
+      } else {
+        // Close Menu
+        mobileMenu?.classList.add("opacity-0", "pointer-events-none");
+        // Change Icon to Hamburger
+        menuBtn.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            `;
+      }
+    });
+
+    // Close menu when clicking a link
+    mobileLinks.forEach((link) => {
+      link.addEventListener("click", () => {
+        isMenuOpen = false;
+        mobileMenu?.classList.add("opacity-0", "pointer-events-none");
+        if (menuBtn) {
+          menuBtn.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                    </svg>
+                `;
+        }
+      });
+    });
+  });
+</script>

@@ -1,0 +1,231 @@
+---
+import zarateData from "../data/zarate.json";
+
+const { hero } = zarateData.content;
+---
+
+<header
+  class="relative h-screen flex items-center justify-center overflow-hidden"
+>
+  <div class="absolute inset-0 z-0 overflow-hidden">
+    <div
+      class="absolute inset-0 bg-gradient-to-b from-black/40 to-zarate-blue/60 z-10 pointer-events-none"
+    >
+    </div>
+
+    <!-- HTML5 Video Element -->
+    <video
+      id="hero-video"
+      class="absolute top-1/2 left-1/2 w-full h-full min-w-full min-h-full -translate-x-1/2 -translate-y-1/2 object-cover pointer-events-none hero-bg scale-110"
+      autoplay
+      muted
+      playsinline
+      preload="metadata"
+    >
+      <source src="/videos/hero-1.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+  </div>
+
+  <div class="relative z-10 text-center text-white max-w-4xl px-4 mt-16">
+    <p
+      class="text-zarate-green font-bold tracking-widest uppercase mb-4 hero-text opacity-0 translate-y-10"
+    >
+      {hero.subheadline}
+    </p>
+    <h1
+      class="font-serif text-6xl md:text-8xl mb-6 leading-tight hero-text opacity-0 translate-y-10"
+      set:html={hero.headline}
+    />
+    <p
+      class="text-lg md:text-xl text-white/90 max-w-2xl mx-auto mb-10 font-light hero-text opacity-0 translate-y-10"
+    >
+      {hero.intro_text}
+    </p>
+    <div class="flex justify-center gap-4 hero-text opacity-0 translate-y-10">
+      <a
+        href="#territorio"
+        class="bg-white text-zarate-blue px-8 py-3 rounded-full font-bold hover:bg-zarate-light transition shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+        >{hero.cta_text}</a
+      >
+      <button
+        id="open-video-btn"
+        class="flex items-center gap-2 backdrop-blur-md bg-white/20 border border-white/30 px-8 py-3 rounded-full font-bold hover:bg-white/30 transition shadow-lg"
+      >
+        <span>▶</span> Ver Video
+      </button>
+    </div>
+  </div>
+
+  <div class="wave-bottom">
+    <svg
+      data-name="Layer 1"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 1200 120"
+      preserveAspectRatio="none"
+    >
+      <path
+        d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+        fill="#F0F9FF"></path>
+    </svg>
+  </div>
+
+  <!-- Video Modal -->
+  <div
+    id="video-modal"
+    class="fixed inset-0 z-50 flex items-center justify-center bg-black/90 opacity-0 pointer-events-none transition-opacity duration-300 backdrop-blur-sm"
+  >
+    <div
+      class="relative w-full h-full md:h-auto md:max-w-5xl md:aspect-video bg-black md:rounded-2xl overflow-hidden shadow-2xl mx-0 md:mx-4 flex flex-col justify-center"
+    >
+      <button
+        id="close-video-btn"
+        class="absolute top-6 right-6 md:top-4 md:right-4 text-white hover:text-zarate-green z-20 bg-black/50 rounded-full p-2 transition-colors"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-8 w-8"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+      <iframe
+        id="youtube-iframe"
+        class="w-full h-full md:h-full"
+        src=""
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen
+      >
+      </iframe>
+    </div>
+  </div>
+</header>
+
+<script>
+  import gsap from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  document.addEventListener("astro:page-load", () => {
+    const header = document.querySelector("header");
+    if (!header) return;
+
+    // Video Modal Logic
+    const modal = document.getElementById("video-modal");
+    const openBtn = document.getElementById("open-video-btn");
+    const closeBtn = document.getElementById("close-video-btn");
+    const iframe = document.getElementById(
+      "youtube-iframe"
+    ) as HTMLIFrameElement;
+    const videoId = "VmpDbUj4QQ0"; // The requested video
+
+    if (modal && openBtn && closeBtn && iframe) {
+      openBtn.addEventListener("click", () => {
+        modal.classList.remove("opacity-0", "pointer-events-none");
+        // Add autoplay=1 to start playing immediately
+        iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+      });
+
+      const closeModal = () => {
+        modal.classList.add("opacity-0", "pointer-events-none");
+        // Clear src to stop video
+        iframe.src = "";
+      };
+
+      closeBtn.addEventListener("click", closeModal);
+
+      // Close on click outside
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) closeModal();
+      });
+
+      // Close on Escape key
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && !modal.classList.contains("opacity-0")) {
+          closeModal();
+        }
+      });
+    }
+
+    const videoElement = document.getElementById(
+      "hero-video"
+    ) as HTMLVideoElement;
+
+    if (videoElement) {
+      const videos = ["/videos/hero-1.mp4", "/videos/hero-2.mp4"];
+
+      // Pick random start video index
+      let currentIndex = Math.floor(Math.random() * videos.length);
+
+      // Function to play current video
+      const playVideo = (index: number) => {
+        videoElement.src = videos[index];
+        videoElement.load();
+        videoElement.play().catch((e) => console.log("Autoplay blocked:", e));
+      };
+
+      // Initial play
+      playVideo(currentIndex);
+
+      // Random Start Time (Only for the first video on load)
+      videoElement.addEventListener("loadedmetadata", function onMetadata() {
+        const duration = videoElement.duration;
+        if (duration > 10) {
+          const randomStart = Math.random() * (duration - 5);
+          videoElement.currentTime = randomStart;
+        }
+        // Remove listener so it doesn't trigger on subsequent videos
+        videoElement.removeEventListener("loadedmetadata", onMetadata);
+      });
+
+      // When video ends, play the next one
+      videoElement.addEventListener("ended", () => {
+        currentIndex = (currentIndex + 1) % videos.length; // Cycle to next
+        playVideo(currentIndex);
+      });
+    }
+
+    // Parallax Effect
+    gsap.to(".hero-bg", {
+      scrollTrigger: {
+        trigger: "header",
+        start: "top top",
+        end: "bottom top",
+        scrub: true,
+      },
+      y: 100,
+      scale: 1,
+    });
+
+    // Staggered Text Animation
+    const heroText = document.querySelectorAll(".hero-text");
+    if (heroText.length > 0) {
+      gsap.fromTo(
+        ".hero-text",
+        { y: 50, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          stagger: 0.2,
+          ease: "power3.out",
+          delay: 0.5,
+        }
+      );
+    }
+  });
+</script>
+
+<style is:global>
+  /* No specific styles needed for the video tag beyond what's in the class attribute */
+</style>

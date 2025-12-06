@@ -13,7 +13,7 @@ const { content } = zarateData;
 <Layout
   title={zarateData.site_config.title}
   description={zarateData.site_config.description}
-  image="/img/escudo-zarate.png"
+  image={content.hero.hero_image}
 >
   <Navigation />
 
@@ -222,7 +222,7 @@ const { content } = zarateData;
     </section>
 
     <!-- Gallery Section -->
-    <Gallery folderPath="/img/galeria-zarate" count={6} />
+    <Gallery count={6} />
 
     <!-- Futuro / CTA Section -->
     <section id="futuro" class="py-24 bg-zarate-green/10 relative">

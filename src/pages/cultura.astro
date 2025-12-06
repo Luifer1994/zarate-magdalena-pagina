@@ -64,7 +64,7 @@ const { culture } = zarateData.content;
       culture.spotlights &&
         culture.spotlights.map((spotlight, index) => (
           <section
-            class={`py-24 relative overflow-hidden ${index % 2 === 1 ? "bg-zarate-blue text-white" : "bg-white text-slate-800"}`}
+            class={`py-10 relative overflow-hidden ${index % 2 === 1 ? "bg-zarate-blue text-white" : "bg-white text-slate-800"}`}
           >
             <div class="absolute inset-0 opacity-10">
               <img
@@ -125,7 +125,7 @@ const { culture } = zarateData.content;
     }
 
     <!-- Traditions -->
-    <section class="py-24 bg-zarate-light">
+    <section class="py-10 bg-zarate-light">
       <div class="max-w-7xl mx-auto px-6">
         <h2
           class="text-4xl font-serif text-center text-zarate-earth mb-16 gsap-fade-up"
@@ -162,7 +162,7 @@ const { culture } = zarateData.content;
     </section>
 
     <!-- Gastronomy -->
-    <section class="py-24 bg-zarate-earth/5 relative">
+    <section class="py-10 bg-zarate-earth/5 relative">
       <div class="max-w-6xl mx-auto px-6">
         <h2
           class="text-4xl font-serif text-center text-zarate-earth mb-16 gsap-fade-up"
@@ -187,7 +187,7 @@ const { culture } = zarateData.content;
     </section>
 
     <!-- Legends CTA -->
-    <section class="py-24 bg-white relative overflow-hidden">
+    <section class="py-10 bg-white relative overflow-hidden">
       <div class="max-w-4xl mx-auto px-6 text-center">
         <h2 class="text-4xl font-serif text-zarate-earth mb-6 gsap-fade-up">
           {culture.cta_legends.title}

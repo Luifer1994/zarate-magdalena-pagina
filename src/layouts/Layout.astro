@@ -2,6 +2,7 @@
 import "../styles/global.css";
 import zarateData from "../data/zarate.json";
 import Footer from "../components/Footer.astro";
+import AudioPlayer from "../components/AudioPlayer.astro";
 import { ClientRouter } from "astro:transitions";
 
 interface Props {
@@ -78,5 +79,6 @@ const {
   <body class="antialiased">
     <slot />
     <Footer />
+    <AudioPlayer />
   </body>
 </html>

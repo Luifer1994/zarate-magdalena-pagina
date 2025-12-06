@@ -42,10 +42,14 @@ const currentYear = new Date().getFullYear();
           <a
             href={social.url}
             target="_blank"
-            class="w-10 h-10 rounded-full bg-slate-100 hover:bg-zarate-blue hover:text-white flex items-center justify-center transition-all duration-300 cursor-pointer hover:scale-110"
+            class="w-10 h-10 rounded-full bg-slate-100 border border-slate-100 hover:bg-[var(--social-hover)] hover:border-[var(--social-hover)] hover:text-white flex items-center justify-center transition-all duration-300 cursor-pointer hover:scale-110 social-icon-svg text-slate-600"
             aria-label={social.name}
+            style={{ "--social-hover": social.color }}
           >
-            <span class="font-bold text-xs">{social.icon}</span>
+            <span
+              class="w-8 h-8 flex items-center justify-center"
+              set:html={social.icon}
+            />
           </a>
         ))
       }

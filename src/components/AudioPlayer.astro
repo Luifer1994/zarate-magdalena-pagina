@@ -1,0 +1,162 @@
+---
+
+---
+
+<div
+  class="fixed bottom-4 right-4 z-50"
+  transition:persist="audio-player"
+  transition:name="audio-player"
+>
+  <button
+    id="audio-toggle"
+    class="bg-white/80 backdrop-blur-md p-3 rounded-full shadow-lg border border-zarate-green/30 text-zarate-green hover:bg-zarate-green hover:text-white transition-all duration-300 group"
+    aria-label="Toggle Audio"
+  >
+    <!-- Play Icon -->
+    <svg
+      id="play-icon"
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-6 w-6 block group-[.playing]:hidden"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
+      ></path>
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+    </svg>
+
+    <!-- Pause Icon -->
+    <svg
+      id="pause-icon"
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-6 w-6 hidden group-[.playing]:block"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+    </svg>
+  </button>
+
+  <audio id="bg-music" loop autoplay>
+    <source src="/audio/danza-indio.mp3" type="audio/mpeg" />
+  </audio>
+</div>
+
+<script>
+  // Persist state across View Transitions (resets on full reload)
+  let userStoppedAudio = false;
+
+  // Run on every page load (handles initial load and view transitions)
+  document.addEventListener("astro:page-load", () => {
+    const btn = document.getElementById("audio-toggle");
+    const audio = document.getElementById("bg-music") as HTMLAudioElement;
+
+    if (!btn || !audio) return;
+
+    // Prevent double initialization if listeners are already attached
+    if (btn.dataset.initialized === "true") {
+      // Just Update UI state on transitions
+      if (!audio.paused) {
+        btn.classList.add("playing");
+      } else {
+        btn.classList.remove("playing");
+      }
+      return;
+    }
+
+    // Mark as initialized
+    btn.dataset.initialized = "true";
+
+    // Set volume (persistent)
+    audio.volume = 0.2;
+
+    let hasInteracted = false;
+    const interactionEvents = [
+      "click",
+      "keydown",
+      "touchstart",
+      "pointerdown",
+      "scroll",
+      "mousemove",
+      "pointermove",
+    ];
+
+    // Helper to clean up auto-unlock listeners
+    const removeUnlockListeners = () => {
+      interactionEvents.forEach((event) => {
+        document.removeEventListener(event, unlockAudio);
+      });
+    };
+
+    const playAudio = () => {
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            btn.classList.add("playing");
+            hasInteracted = true;
+            removeUnlockListeners();
+            userStoppedAudio = false;
+          })
+          .catch((e) => {
+            // Benign error: Autoplay blocked
+            // console.debug("Autoplay prevented", e);
+          });
+      }
+    };
+
+    // 1. Try autoplay immediately if user hasn't stopped it
+    if (!userStoppedAudio) {
+      playAudio();
+    }
+
+    // 2. Button Interaction (User Control)
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      hasInteracted = true;
+      removeUnlockListeners(); // Stop trying to auto-unlock
+
+      if (audio.paused) {
+        playAudio();
+      } else {
+        audio.pause();
+        btn.classList.remove("playing");
+        userStoppedAudio = true; // Mark that user INTENDED to stop it
+      }
+    });
+
+    // 3. Fallback: Unlock on first interaction
+    const unlockAudio = () => {
+      // Only unlock if the user hasn't already taken control (hasInteracted)
+      // AND they haven't explicitly requested silence (userStoppedAudio)
+      if (!hasInteracted && audio.paused && !userStoppedAudio) {
+        playAudio();
+      }
+    };
+
+    // Attach unlock listeners
+    if (!userStoppedAudio) {
+      interactionEvents.forEach((event) => {
+        document.addEventListener(event, unlockAudio, {
+          once: true,
+          passive: true,
+        });
+      });
+    }
+  });
+</script>
+```

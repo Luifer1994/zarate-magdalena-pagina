@@ -8,7 +8,7 @@ interface Props {
 }
 
 const {
-  count = 6,
+  count = 10,
   title = "Galería Fotográfica",
   subtitle = "Un vistazo a la magia de Zárate",
 } = Astro.props;
@@ -24,12 +24,9 @@ const images = Object.values(imageFiles).map((file) => file.default);
 // Shuffle all images
 const allImages = images.sort(() => 0.5 - Math.random());
 const visibleImages = allImages.slice(0, count);
-
-// Extract just the SRC strings for the lightbox to use
-const allImageSrcs = allImages.map((img) => img.src);
 ---
 
-<section class="py-24 bg-zarate-light" id="galeria-section">
+<section class="py-10 bg-zarate-light" id="galeria-section">
   <div class="max-w-7xl mx-auto px-6">
     <div class="text-center mb-16">
       <h2 class="text-4xl font-serif text-zarate-earth mb-4 gsap-fade-up">
@@ -40,11 +37,7 @@ const allImageSrcs = allImages.map((img) => img.src);
       </p>
     </div>
 
-    <div
-      class="w-full relative"
-      id="gallery-grid"
-      data-all-images={JSON.stringify(allImageSrcs)}
-    >
+    <div class="w-full relative pswp-gallery" id="gallery-grid">
       <!-- Sizers for Masonry -->
       <div
         class="grid-sizer w-[calc(50%-0.5rem)] md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.34rem)]"
@@ -53,59 +46,37 @@ const allImageSrcs = allImages.map((img) => img.src);
       <div class="gutter-sizer w-4 md:w-8"></div>
 
       {
-        visibleImages.map((image, index) => (
-          <div
-            class="gallery-item w-[calc(50%-0.5rem)] md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.34rem)] mb-4 md:mb-8 group relative overflow-hidden rounded-2xl shadow-md cursor-pointer opacity-0 translate-y-10"
-            data-index={index}
-            data-src={image.src}
-          >
-            <Image
-              src={image}
-              alt={`Galería Zárate ${index + 1}`}
-              class="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
-              widths={[400, 800]}
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            />
-            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
-              <span class="text-white text-4xl font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform scale-50 group-hover:scale-100">
-                +
-              </span>
-            </div>
-          </div>
-        ))
+        allImages.map((image, index) => {
+          const isVisible = index < count;
+          return (
+            <a
+              href={image.src}
+              data-pswp-width={image.width}
+              data-pswp-height={image.height}
+              target="_blank"
+              class={
+                isVisible
+                  ? "gallery-item w-[calc(50%-0.5rem)] md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.34rem)] mb-4 md:mb-8 group relative overflow-hidden rounded-2xl shadow-md cursor-pointer opacity-0 translate-y-10 block"
+                  : "hidden"
+              }
+              data-index={index}
+            >
+              <Image
+                src={image}
+                alt={`Galería Zárate ${index + 1}`}
+                class="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
+                widths={[400, 800]}
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              />
+              <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
+                <span class="text-white text-4xl font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform scale-50 group-hover:scale-100">
+                  +
+                </span>
+              </div>
+            </a>
+          );
+        })
       }
-    </div>
-  </div>
-
-  <!-- Lightbox Modal -->
-  <div
-    id="lightbox"
-    class="fixed inset-0 z-[100] bg-black/95 hidden flex items-center justify-center opacity-0 transition-opacity duration-300"
-  >
-    <button
-      id="close-lightbox"
-      class="absolute top-6 right-6 text-white text-5xl hover:text-zarate-green transition-colors z-[110]"
-      >&times;</button
-    >
-
-    <button
-      id="prev-btn"
-      class="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 text-white text-4xl md:text-6xl hover:text-zarate-green transition-colors p-4 z-[110] bg-black/20 hover:bg-black/50 rounded-full w-16 h-16 md:w-20 md:h-20 flex items-center justify-center backdrop-blur-sm"
-      >&#10094;</button
-    >
-    <button
-      id="next-btn"
-      class="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 text-white text-4xl md:text-6xl hover:text-zarate-green transition-colors p-4 z-[110] bg-black/20 hover:bg-black/50 rounded-full w-16 h-16 md:w-20 md:h-20 flex items-center justify-center backdrop-blur-sm"
-      >&#10095;</button
-    >
-
-    <div class="relative max-w-7xl max-h-[90vh] p-4 w-full flex justify-center">
-      <img
-        id="lightbox-img"
-        src=""
-        alt="Full screen"
-        class="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl transition-opacity duration-200"
-      />
     </div>
   </div>
 </section>
@@ -115,26 +86,34 @@ const allImageSrcs = allImages.map((img) => img.src);
   import { ScrollTrigger } from "gsap/ScrollTrigger";
   import Masonry from "masonry-layout";
   import imagesLoaded from "imagesloaded";
+  import PhotoSwipeLightbox from "photoswipe/lightbox";
+  import "photoswipe/style.css";
 
   gsap.registerPlugin(ScrollTrigger);
 
-  // Initialize Masonry
-  const grid = document.getElementById("gallery-grid");
-  let msnry: Masonry;
+  const initGallery = () => {
+    const grid = document.getElementById("gallery-grid");
+    if (!grid) return;
 
-  if (grid) {
-    // Wait for images to load before initializing Masonry layout
+    // Destroy existing Masonry instance if it exists (though simple re-new often works)
+    // Initialize Masonry
     imagesLoaded(grid, function () {
-      msnry = new Masonry(grid, {
+      new Masonry(grid, {
         itemSelector: ".gallery-item",
         columnWidth: ".grid-sizer",
         gutter: ".gutter-sizer",
         percentPosition: true,
       });
 
-      // Animate items after layout is ready
+      // Force layout after a small delay to ensure images are okay
+      // msnry.layout();
+
+      // Animate items
       const galleryItems = document.querySelectorAll(".gallery-item");
       if (galleryItems.length > 0) {
+        // Kill old animations to prevent sync issues
+        gsap.killTweensOf(galleryItems);
+
         gsap.fromTo(
           galleryItems,
           { y: 50, opacity: 0 },
@@ -148,132 +127,27 @@ const allImageSrcs = allImages.map((img) => img.src);
             duration: 0.8,
             stagger: 0.1,
             ease: "power3.out",
+            onComplete: () => {
+              // Ensure visibility persists
+              galleryItems.forEach((item) => {
+                (item as HTMLElement).style.opacity = "1";
+                (item as HTMLElement).style.transform = "none";
+              });
+            },
           }
         );
       }
     });
-  }
 
-  // Reconstruct gallery images
-  const galleryItems = document.querySelectorAll(".gallery-item");
-  let galleryImages: string[] = [];
-  try {
-    if (grid && grid.dataset.allImages) {
-      galleryImages = JSON.parse(grid.dataset.allImages);
-    }
-  } catch (e) {
-    console.error("Error parsing gallery images:", e);
-  }
-
-  // Fallback to visible images if parsing fails or empty
-  if (!galleryImages.length) {
-    galleryImages = Array.from(galleryItems).map(
-      (item) => item.getAttribute("data-src") || ""
-    );
-  }
-  let currentIndex = 0;
-
-  const lightbox = document.getElementById("lightbox");
-  const lightboxImg = document.getElementById(
-    "lightbox-img"
-  ) as HTMLImageElement;
-  const closeBtn = document.getElementById("close-lightbox");
-  const prevBtn = document.getElementById("prev-btn");
-  const nextBtn = document.getElementById("next-btn");
-
-  if (lightbox && lightboxImg && closeBtn && prevBtn && nextBtn) {
-    const openLightbox = (index: number) => {
-      currentIndex = index;
-      updateLightboxImage();
-      lightbox.classList.remove("hidden");
-      // Small delay to allow display:block to apply before opacity transition
-      setTimeout(() => {
-        lightbox.classList.remove("opacity-0");
-      }, 10);
-      document.body.style.overflow = "hidden"; // Prevent scrolling
-    };
-
-    const closeLightboxModal = () => {
-      lightbox.classList.add("opacity-0");
-      setTimeout(() => {
-        lightbox.classList.add("hidden");
-        document.body.style.overflow = ""; // Restore scrolling
-      }, 300);
-    };
-
-    const updateLightboxImage = () => {
-      const imgSrc = galleryImages[currentIndex];
-
-      // Slight fade to indicate change, but fast
-      lightboxImg.style.opacity = "0.8";
-
-      // Swap immediately
-      if (imgSrc) {
-        const tempImg = new Image();
-        tempImg.src = imgSrc;
-        tempImg.onload = () => {
-          lightboxImg.src = imgSrc;
-          lightboxImg.style.opacity = "1";
-        };
-        // If it's already cached/fast enough, this handles it.
-        // If slow, the previous image remains for a split second (better than blank) or we can show loader.
-        // Simplified approach for speed:
-        lightboxImg.src = imgSrc;
-        lightboxImg.onload = () => {
-          lightboxImg.style.opacity = "1";
-        };
-      }
-
-      // Preload next and previous images
-      const nextIndex = (currentIndex + 1) % galleryImages.length;
-      const prevIndex =
-        (currentIndex - 1 + galleryImages.length) % galleryImages.length;
-      new Image().src = galleryImages[nextIndex];
-      new Image().src = galleryImages[prevIndex];
-    };
-
-    const showNext = () => {
-      currentIndex = (currentIndex + 1) % galleryImages.length;
-      updateLightboxImage();
-    };
-
-    const showPrev = () => {
-      currentIndex =
-        (currentIndex - 1 + galleryImages.length) % galleryImages.length;
-      updateLightboxImage();
-    };
-
-    // Event Listeners
-    galleryItems.forEach((item, index) => {
-      item.addEventListener("click", () => openLightbox(index));
+    // Initialize PhotoSwipe
+    const lightbox = new PhotoSwipeLightbox({
+      gallery: "#gallery-grid",
+      children: "a",
+      pswpModule: () => import("photoswipe"),
     });
+    lightbox.init();
+  };
 
-    closeBtn.addEventListener("click", closeLightboxModal);
-
-    nextBtn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      showNext();
-    });
-
-    prevBtn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      showPrev();
-    });
-
-    // Close on background click
-    lightbox.addEventListener("click", (e) => {
-      if (e.target === lightbox) {
-        closeLightboxModal();
-      }
-    });
-
-    // Keyboard navigation
-    document.addEventListener("keydown", (e) => {
-      if (lightbox.classList.contains("hidden")) return;
-
-      if (e.key === "Escape") closeLightboxModal();
-      if (e.key === "ArrowRight") showNext();
-      if (e.key === "ArrowLeft") showPrev();
-    });
-  }
+  // Run on every page load (handles initial load and view transitions)
+  document.addEventListener("astro:page-load", initGallery);
 </script>

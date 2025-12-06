@@ -15,6 +15,7 @@
     "imagesloaded": "^5.0.0",
     "lite-youtube-embed": "^0.3.4",
     "masonry-layout": "^4.2.2",
+    "photoswipe": "^5.4.4",
     "tailwindcss": "^4.1.17"
   },
   "devDependencies": {

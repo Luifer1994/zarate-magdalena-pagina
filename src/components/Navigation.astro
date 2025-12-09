@@ -1,5 +1,6 @@
 ---
 import { Image } from "astro:assets";
+import logo from "../assets/escudo-zarate.png";
 import zarateData from "../data/zarate.json";
 
 const navItems = [
@@ -22,7 +23,7 @@ const currentPath = Astro.url.pathname;
   >
     <a href="/" class="flex items-center gap-2 group z-50 relative">
       <Image
-        src="/img/escudo-zarate.png"
+        src={logo}
         alt="Escudo de Zárate, Magdalena"
         width={56}
         height={56}
@@ -58,6 +59,7 @@ const currentPath = Astro.url.pathname;
     <!-- Mobile Menu Button -->
     <button
       id="mobile-menu-btn"
+      aria-label="Abrir men\u00fa de navegaci\u00f3n"
       class="md:hidden z-50 relative text-zarate-blue focus:outline-none"
     >
       <svg

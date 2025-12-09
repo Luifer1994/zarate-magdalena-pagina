@@ -1,4 +1,6 @@
 ---
+import { Image } from "astro:assets";
+import logo from "../assets/escudo-zarate.png";
 import zarateData from "../data/zarate.json";
 
 const { footer } = zarateData.content;
@@ -11,7 +13,13 @@ const currentYear = new Date().getFullYear();
   >
     <div class="flex items-center gap-4">
       <a href="/" class="flex items-center gap-3 group z-50 relative">
-        <img src={footer.logo} alt="Logo" class="w-auto h-12 md:h-16" />
+        <Image
+          src={logo}
+          alt="Escudo de Zárate, Magdalena"
+          width={64}
+          height={64}
+          class="w-auto h-12 md:h-16"
+        />
       </a>
       <div>
         <h4 class="font-serif text-xl font-bold text-zarate-blue tracking-wide">

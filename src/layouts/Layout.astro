@@ -66,6 +66,66 @@ const {
     <meta property="twitter:image" content={new URL(image, Astro.url)} />
     <meta property="twitter:image:alt" content={title} />
 
+    <!-- Geo Meta Tags for Local Search -->
+    <meta name="geo.region" content={zarateData.site_config.geo.region} />
+    <meta name="geo.placename" content={zarateData.site_config.geo.placename} />
+    <meta
+      name="geo.position"
+      content={`${zarateData.site_config.geo.latitude};${zarateData.site_config.geo.longitude}`}
+    />
+    <meta
+      name="ICBM"
+      content={`${zarateData.site_config.geo.latitude}, ${zarateData.site_config.geo.longitude}`}
+    />
+
+    <!-- JSON-LD Organization Schema -->
+    <script type="application/ld+json">
+      {
+        JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: zarateData.site_config.title,
+          description: zarateData.site_config.description,
+          url: zarateData.site_config.site_url,
+          logo: new URL(zarateData.site_config.default_image, Astro.site),
+          sameAs: [
+            "https://www.facebook.com/profile.php?id=100083745619789",
+            "https://www.instagram.com/zarate_mag2023",
+            "https://www.tiktok.com/@zaratemtycult",
+          ],
+        })
+      }
+    </script>
+
+    <!-- JSON-LD Place Schema for Google Maps -->
+    <script type="application/ld+json">
+      {
+        JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Place",
+          name: "Zárate",
+          alternateName: [
+            "Corregimiento de Zárate",
+            "Zárate Magdalena",
+            "Zárate Plato",
+          ],
+          description: zarateData.site_config.description,
+          geo: {
+            "@type": "GeoCoordinates",
+            latitude: zarateData.site_config.geo.latitude,
+            longitude: zarateData.site_config.geo.longitude,
+          },
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: "Zárate",
+            addressRegion: "Magdalena",
+            addressCountry: "CO",
+          },
+          hasMap: "https://maps.app.goo.gl/SWJXbUnhBJU8Zjq36",
+        })
+      }
+    </script>
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

@@ -6,18 +6,62 @@
         "language": "es",
         "version": "2.0.0",
         "last_updated": "2025-12-05",
+        "site_url": "https://zarate-magdalena.netlify.app",
+        "geo": {
+            "latitude": "9.2667",
+            "longitude": "-74.7833",
+            "region": "CO-MAG",
+            "placename": "Zárate, Plato, Magdalena, Colombia"
+        },
         "seo_keywords": [
             "Zárate",
-            "Magdalena",
-            "Plato",
-            "Ciénaga",
-            "Ecoturismo",
-            "Historia Indígena",
-            "Chimila",
-            "Naturaleza",
-            "Realismo Mágico"
+            "Zárate Magdalena",
+            "Zárate Plato",
+            "Zárate Colombia",
+            "Corregimiento Zárate",
+            "Plato Magdalena",
+            "Ciénaga Zárate",
+            "Turismo Zárate",
+            "Ecoturismo Magdalena",
+            "Historia Indígena Chimila",
+            "Cacique Zárate",
+            "Depresión Momposina",
+            "Río Magdalena",
+            "Cultura Anfibia"
         ],
-        "default_image": "/img/escudo-zarate.png"
+        "default_image": "/img/escudo-zarate.png",
+        "seo_pages": {
+            "home": {
+                "title": "Zárate: La Cuna del Río Magdalena | Turismo y Cultura en el Caribe",
+                "description": "Descubre la historia, la riqueza natural y la resiliencia de la comunidad de Zárate, un tesoro en la Depresión Momposina. Cultura anfibia, ecoturismo y tradiciones ancestrales.",
+                "image": "/img/pages/banner-bienvenidos-zarate.webp",
+                "keywords": "Zárate Magdalena, turismo Zárate, ecoturismo Depresión Momposina, Río Magdalena, cultura Chimila"
+            },
+            "cultura": {
+                "title": "Cultura Anfibia de Zárate | Tradiciones, Gastronomía y Fiestas",
+                "description": "Descubre las tradiciones, gastronomía y fiestas de Zárate. Conoce la Danza de los Indios Chimila, los Carnavales, la Semana Santa y la cultura anfibia única de la Depresión Momposina.",
+                "image": "/img/pages/banner-cultura-zarate-1.webp",
+                "keywords": "cultura Zárate, tradiciones Magdalena, gastronomía Zárate, Danza Chimila, Carnavales Zárate"
+            },
+            "ecologia": {
+                "title": "El Tesoro Hídrico de Zárate | Ecología y Biodiversidad de la Ciénaga",
+                "description": "Explora el ecosistema de la ciénaga de Zárate: flora, fauna y los desafíos ambientales de este santuario de biodiversidad en la Depresión Momposina.",
+                "image": "/img/pages/banner-ecologia-zarate.webp",
+                "keywords": "ciénaga Zárate, biodiversidad Magdalena, ecología Depresión Momposina, fauna ciénaga, conservación ambiental"
+            },
+            "historia": {
+                "title": "Historia de Zárate | Del Cacique Chimila al Pueblo Más Antiguo",
+                "description": "La historia del cacique Zárate y los Chimilas. Descubre el origen del pueblo más antiguo de la región, anterior a Plato, y su legado indígena.",
+                "image": "/img/pages/banner-historia-zarate.webp",
+                "keywords": "historia Zárate, Cacique Zárate, Chimila, pueblos indígenas Magdalena, historia Depresión Momposina"
+            },
+            "mitos": {
+                "title": "Mitos y Leyendas de Zárate | El Hombre Caimán y el Cacique",
+                "description": "Relatos vivos que caminan entre nosotros. El Cacique Zárate, El Hombre Caimán, La Llorona del Río y más leyendas de la tradición oral de la Depresión Momposina.",
+                "image": "/img/pages/banner-mitos-leyendas-zarate.webp",
+                "keywords": "mitos Zárate, leyendas Magdalena, Hombre Caimán, tradición oral, folklore colombiano"
+            }
+        }
     },
     "theme": {
         "colors": {

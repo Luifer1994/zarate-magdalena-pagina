@@ -8,9 +8,9 @@ const { history } = zarateData.content;
 ---
 
 <Layout
-  title={`${history.title} - Zárate`}
-  description={history.intro.replace(/<[^>]*>?/gm, "")}
-  image={history.hero_image}
+  title={zarateData.site_config.seo_pages.historia.title}
+  description={zarateData.site_config.seo_pages.historia.description}
+  image={zarateData.site_config.seo_pages.historia.image}
 >
   <Navigation />
 

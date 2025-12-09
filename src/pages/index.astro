@@ -17,9 +17,9 @@ const mitosImages = import.meta.glob<{ default: ImageMetadata }>(
 ---
 
 <Layout
-  title={zarateData.site_config.title}
-  description={zarateData.site_config.description}
-  image={content.hero.hero_image}
+  title={zarateData.site_config.seo_pages.home.title}
+  description={zarateData.site_config.seo_pages.home.description}
+  image={zarateData.site_config.seo_pages.home.image}
 >
   <Navigation />
 

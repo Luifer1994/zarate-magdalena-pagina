@@ -1,10 +1,10 @@
 @import "tailwindcss";
 
 @theme {
-  --color-zarate-blue: #4A708B;
-  --color-zarate-green: #84CC16;
-  --color-zarate-earth: #8B5A2B;
-  --color-zarate-light: #F0F9FF;
+  --color-zarate-blue: #4a708b;
+  --color-zarate-green: #65a30d;
+  --color-zarate-earth: #8b5a2b;
+  --color-zarate-light: #f0f9ff;
 
   --font-heading: "Playfair Display", serif;
   --font-body: "Outfit", sans-serif;

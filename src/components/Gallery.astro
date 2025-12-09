@@ -146,5 +146,8 @@ const visibleImages = allImages.slice(0, count);
   };
 
   // Run on every page load (handles initial load and view transitions)
-  document.addEventListener("astro:page-load", initGallery);
+  document.addEventListener("astro:page-load", () => {
+    // Super-defer gallery initialization to ensure zero network contention with LCP
+    setTimeout(initGallery, 4000);
+  });
 </script>

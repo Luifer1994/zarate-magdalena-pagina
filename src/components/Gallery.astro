@@ -69,7 +69,8 @@ const visibleImages = allImages.slice(0, count);
               <Image
                 src={image}
                 alt={`Galería Zárate ${index + 1}`}
-                class="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
+                class="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105 bg-gray-200"
+                style={`aspect-ratio: ${image.width} / ${image.height};`}
                 widths={[240, 480, 720]}
                 sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 33vw"
                 loading={isEager ? "eager" : "lazy"}

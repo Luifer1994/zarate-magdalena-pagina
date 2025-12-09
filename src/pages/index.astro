@@ -272,14 +272,15 @@ const mitosImages = import.meta.glob<{ default: ImageMetadata }>(
 </Layout>
 
 <script>
-  import gsap from "gsap";
-  import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-  gsap.registerPlugin(ScrollTrigger);
-
-  document.addEventListener("astro:page-load", () => {
+  document.addEventListener("astro:page-load", async () => {
     // Check if we are on the index page (or a page with #territorio)
     if (!document.getElementById("territorio")) return;
+
+    // Dynamically import GSAP and ScrollTrigger only when needed
+    const { default: gsap } = await import("gsap");
+    const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+
+    gsap.registerPlugin(ScrollTrigger);
 
     // Fade In Right
     const fadeRightElements = gsap.utils.toArray(".gsap-fade-right");

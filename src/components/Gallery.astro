@@ -161,7 +161,7 @@ const visibleImages = allImages.slice(0, count);
           }
         });
       },
-      { rootMargin: "200px" }
+      { rootMargin: "0px", threshold: 0.01 }
     );
 
     observer.observe(grid);

@@ -287,8 +287,8 @@ const mitosImages = import.meta.glob<{ default: ImageMetadata }>(
           }
         });
       },
-      { rootMargin: "200px" }
-    ); // Load slightly before it comes into view
+      { rootMargin: "0px", threshold: 0.01 }
+    ); // Only load when ACTUALLY visible
 
     const territorySection = document.getElementById("territorio");
     if (territorySection) {

@@ -11,9 +11,6 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
     build: {
-      // VIBRANIUM LEVEL: Disable module preloading entirely.
-      // This ensures that deferred scripts (dynamic imports) are NOT downloaded
-      // until they are actually requested by the IntersectionObserver.
       modulePreload: false,
       polyfillModulePreload: false,
     },

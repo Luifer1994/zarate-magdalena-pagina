@@ -21,8 +21,12 @@ const { hero } = zarateData.content;
       alt="Zárate: Vista panorámica de la ciénaga y el río Magdalena"
       width={1920}
       height={1080}
+      quality={75}
+      widths={[640, 1024, 1920]}
+      sizes="100vw"
       fetchpriority="high"
       loading="eager"
+      decoding="sync"
       class="absolute top-1/2 left-1/2 w-full h-full min-w-full min-h-full -translate-x-1/2 -translate-y-1/2 object-cover hero-bg scale-110"
     />
   </div>

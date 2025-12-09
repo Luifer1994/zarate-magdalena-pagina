@@ -33,21 +33,21 @@ const { hero } = zarateData.content;
 
   <div class="relative z-10 text-center text-white max-w-4xl px-4 mt-16">
     <p
-      class="text-zarate-green font-bold tracking-widest uppercase mb-4 hero-text opacity-0 translate-y-10"
+      class="text-zarate-green font-bold tracking-widest uppercase mb-4 hero-text"
     >
       {hero.subheadline}
     </p>
     <h1
-      class="font-serif text-6xl md:text-8xl mb-6 leading-tight hero-text opacity-0 translate-y-10"
+      class="font-serif text-6xl md:text-8xl mb-6 leading-tight hero-text"
       set:html={hero.headline}
     />
     <p
-      class="text-lg md:text-xl text-white/90 max-w-2xl mx-auto mb-10 font-light hero-text opacity-0 translate-y-10"
+      class="text-lg md:text-xl text-white/90 max-w-2xl mx-auto mb-10 font-light hero-text"
     >
       {hero.intro_text}
     </p>
     <div
-      class="flex flex-row justify-center items-center gap-2 md:gap-4 hero-text opacity-0 translate-y-10 w-full px-2"
+      class="flex flex-row justify-center items-center gap-2 md:gap-4 hero-text w-full px-2"
     >
       <a
         href="#territorio"
@@ -182,18 +182,14 @@ const { hero } = zarateData.content;
     // Staggered Text Animation
     const heroText = document.querySelectorAll(".hero-text");
     if (heroText.length > 0) {
-      gsap.fromTo(
-        ".hero-text",
-        { y: 30, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.6,
-          stagger: 0.05,
-          ease: "power3.out",
-          delay: 0,
-        }
-      );
+      gsap.from(".hero-text", {
+        y: 30,
+        opacity: 0,
+        duration: 0.6,
+        stagger: 0.05,
+        ease: "power3.out",
+        delay: 0,
+      });
     }
   });
 </script>

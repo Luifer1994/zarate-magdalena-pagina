@@ -148,17 +148,12 @@ const visibleImages = allImages.slice(0, count);
 
   // Run on every page load (handles initial load and view transitions)
   document.addEventListener("astro:page-load", () => {
-    // Zen Mode: Load scripts locally ONLY when user interacts
-    const initGallery = async () => {
-      // Remove listeners
-      ["scroll", "mousemove", "touchstart"].forEach((event) => {
-        window.removeEventListener(event, initGallery);
-      });
-
+    // Platinum Mode: Defer execution by 3.5s to purely unblock Main Thread for LCP
+    setTimeout(async () => {
       const grid = document.getElementById("gallery-grid");
       if (!grid) return;
 
-      // Dynamically import libraries
+      // Dynamically import libraries (Standard local imports)
       const { default: gsap } = await import("gsap");
       const { ScrollTrigger } = await import("gsap/ScrollTrigger");
       const { default: PhotoSwipeLightbox } = await import(
@@ -206,13 +201,7 @@ const visibleImages = allImages.slice(0, count);
           }
         );
       }
-    };
-    // Add interaction listeners
-    ["scroll", "mousemove", "touchstart"].forEach((event) => {
-      window.addEventListener(event, initGallery, {
-        once: true,
-        passive: true,
-      });
-    });
+    }, 3500); // 3.5s delay
   });
 </script>
+```

@@ -124,9 +124,9 @@ const mitosImages = import.meta.glob<{ default: ImageMetadata }>(
                         alt={item.title}
                         alt={item.title}
                         width={600}
-                        widths={[360, 600]}
+                        widths={[240, 360, 600]}
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        quality={60}
+                        quality={40}
                         loading="lazy"
                         decoding="async"
                       />
@@ -172,10 +172,11 @@ const mitosImages = import.meta.glob<{ default: ImageMetadata }>(
           src={leyenda039}
           alt="Taxi 039 en las calles de Zárate - historia del vallenato"
           width={800}
+          width={800}
           height={600}
-          widths={[400, 800]}
+          widths={[240, 400, 800]}
           sizes="(max-width: 768px) 100vw, 50vw"
-          quality={50}
+          quality={40}
           class="w-full h-full object-cover grayscale"
         />
       </div>

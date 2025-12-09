@@ -148,7 +148,72 @@ const visibleImages = allImages.slice(0, count);
 
   // Run on every page load (handles initial load and view transitions)
   document.addEventListener("astro:page-load", () => {
-    // Super-defer gallery initialization to ensure zero network contention with LCP
-    setTimeout(initGallery, 4000);
+    // Zen Mode: Load gallery scripts ONLY when user interacts
+    const initGallery = async () => {
+      // Remove listeners
+      ["scroll", "mousemove", "touchstart"].forEach((event) => {
+        window.removeEventListener(event, initGallery);
+      });
+
+      const grid = document.getElementById("gallery-grid");
+      if (!grid) return;
+
+      // Dynamically import libraries
+      const { default: gsap } = await import("gsap");
+      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+      const { default: PhotoSwipeLightbox } = await import(
+        "photoswipe/lightbox"
+      );
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      // 1. Initialize PhotoSwipe (Lightbox)
+      try {
+        const lightbox = new PhotoSwipeLightbox({
+          gallery: "#gallery-grid",
+          children: "a",
+          pswpModule: () => import("photoswipe"),
+        });
+        lightbox.init();
+      } catch (error) {
+        console.error("Lightbox failed to init:", error);
+      }
+
+      // 2. Animate Items (Simple Entrance)
+      const galleryItems = document.querySelectorAll(".gallery-item");
+      if (galleryItems.length > 0) {
+        gsap.killTweensOf(galleryItems);
+        gsap.fromTo(
+          galleryItems,
+          { y: 50, opacity: 0 },
+          {
+            scrollTrigger: {
+              trigger: "#gallery-grid",
+              start: "top 85%",
+            },
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            stagger: 0.05, // Faster stagger for better feel
+            ease: "power3.out",
+            onComplete: () => {
+              // Cleanup to ensure visibility ensures
+              galleryItems.forEach((item) => {
+                (item as HTMLElement).style.opacity = "1";
+                (item as HTMLElement).style.transform = "none";
+              });
+            },
+          }
+        );
+      }
+    };
+
+    // Add interaction listeners
+    ["scroll", "mousemove", "touchstart"].forEach((event) => {
+      window.addEventListener(event, initGallery, {
+        once: true,
+        passive: true,
+      });
+    });
   });
 </script>

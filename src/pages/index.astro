@@ -215,7 +215,7 @@ const mitosImages = import.meta.glob<{ default: ImageMetadata }>(
     </section>
 
     <!-- Gallery Section -->
-    <Gallery count={10} />
+    <Gallery count={8} />
 
     <!-- Futuro / CTA Section -->
     <section id="futuro" class="py-10 bg-zarate-green/10 relative">
@@ -276,9 +276,15 @@ const mitosImages = import.meta.glob<{ default: ImageMetadata }>(
     // Check if we are on the index page (or a page with #territorio)
     if (!document.getElementById("territorio")) return;
 
-    // Defer execution to purely unblock Main Thread for LCP
-    setTimeout(async () => {
-      // Dynamically import GSAP and ScrollTrigger only when needed
+    // Zen Mode: Load scripts ONLY when user interacts (scrolls/moves/touches)
+    // This removes the script from the initial LCP waterfall completely.
+    const loadScripts = async () => {
+      // Remove listeners to run once
+      ["scroll", "mousemove", "touchstart"].forEach((event) => {
+        window.removeEventListener(event, loadScripts);
+      });
+
+      // Standard dynamic imports (Zen Mode preserved via interaction listener)
       const { default: gsap } = await import("gsap");
       const { ScrollTrigger } = await import("gsap/ScrollTrigger");
 
@@ -367,6 +373,14 @@ const mitosImages = import.meta.glob<{ default: ImageMetadata }>(
           },
         });
       }
-    }, 2500); // 2.5s delay to ensure zero main thread contention
+    };
+
+    // Add interaction listeners
+    ["scroll", "mousemove", "touchstart"].forEach((event) => {
+      window.addEventListener(event, loadScripts, {
+        once: true,
+        passive: true,
+      });
+    });
   });
 </script>

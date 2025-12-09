@@ -37,17 +37,22 @@ const visibleImages = allImages.slice(0, count);
       </p>
     </div>
 
-    <div class="w-full relative pswp-gallery" id="gallery-grid">
-      <!-- Sizers for Masonry -->
-      <div
-        class="grid-sizer w-[calc(50%-0.5rem)] md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.34rem)]"
-      >
-      </div>
-      <div class="gutter-sizer w-4 md:w-8"></div>
-
+    <!-- 
+      CSS Columns Masonry Implementation:
+      - Better Performance (No Javascript required for layout)
+      - Immune to 504/Network errors for JS libs
+      - Native responsive support
+    -->
+    <div
+      class="w-full relative pswp-gallery columns-2 md:columns-3 gap-4 lg:gap-6 space-y-4"
+      id="gallery-grid"
+    >
       {
         allImages.map((image, index) => {
           const isVisible = index < count;
+          // Performance optimization: Eager load first 4 images (above fold likely)
+          const isEager = index < 4;
+
           return (
             <a
               href={image.src}
@@ -56,21 +61,20 @@ const visibleImages = allImages.slice(0, count);
               target="_blank"
               class={
                 isVisible
-                  ? "gallery-item w-[calc(50%-0.5rem)] md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.34rem)] mb-4 md:mb-8 group relative overflow-hidden rounded-2xl shadow-md cursor-pointer opacity-0 translate-y-10 block"
+                  ? "gallery-item block break-inside-avoid mb-4 group relative overflow-hidden rounded-2xl shadow-md cursor-pointer opacity-0 translate-y-10"
                   : "hidden"
               }
               data-index={index}
             >
               <Image
                 src={image}
-                alt={`Fotografía de Zárate ${index + 1}: paisajes y vida cotidiana`}
-                loading={index < 3 ? "eager" : "lazy"}
-                fetchpriority={index < 3 ? "auto" : "low"}
-                decoding="async"
+                alt={`Galería Zárate ${index + 1}`}
                 class="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
-                widths={[240, 540, 720]}
-                quality={60}
-                sizes="(max-width: 768px) 50vw, (max-width: 1200px) 50vw, 33vw"
+                widths={[400, 800]}
+                sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 33vw"
+                loading={isEager ? "eager" : "lazy"}
+                fetchpriority={isEager ? "high" : "auto"}
+                decoding="async"
               />
               <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
                 <span class="text-white text-4xl font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform scale-50 group-hover:scale-100">
@@ -88,68 +92,54 @@ const visibleImages = allImages.slice(0, count);
 <script>
   import gsap from "gsap";
   import { ScrollTrigger } from "gsap/ScrollTrigger";
-  import Masonry from "masonry-layout";
-  import imagesLoaded from "imagesloaded";
   import PhotoSwipeLightbox from "photoswipe/lightbox";
   import "photoswipe/style.css";
 
   gsap.registerPlugin(ScrollTrigger);
 
-  const initGallery = () => {
+  const initGallery = async () => {
     const grid = document.getElementById("gallery-grid");
     if (!grid) return;
 
-    // Destroy existing Masonry instance if it exists (though simple re-new often works)
-    // Initialize Masonry
-    imagesLoaded(grid, function () {
-      new Masonry(grid, {
-        itemSelector: ".gallery-item",
-        columnWidth: ".grid-sizer",
-        gutter: ".gutter-sizer",
-        percentPosition: true,
+    // 1. Initialize PhotoSwipe (Lightbox)
+    try {
+      const lightbox = new PhotoSwipeLightbox({
+        gallery: "#gallery-grid",
+        children: "a",
+        pswpModule: () => import("photoswipe"),
       });
+      lightbox.init();
+    } catch (error) {
+      console.error("Lightbox failed to init:", error);
+    }
 
-      // Force layout after a small delay to ensure images are okay
-      // msnry.layout();
-
-      // Animate items
-      const galleryItems = document.querySelectorAll(".gallery-item");
-      if (galleryItems.length > 0) {
-        // Kill old animations to prevent sync issues
-        gsap.killTweensOf(galleryItems);
-
-        gsap.fromTo(
-          galleryItems,
-          { y: 50, opacity: 0 },
-          {
-            scrollTrigger: {
-              trigger: "#gallery-grid",
-              start: "top 85%",
-            },
-            y: 0,
-            opacity: 1,
-            duration: 0.8,
-            stagger: 0.1,
-            ease: "power3.out",
-            onComplete: () => {
-              // Ensure visibility persists
-              galleryItems.forEach((item) => {
-                (item as HTMLElement).style.opacity = "1";
-                (item as HTMLElement).style.transform = "none";
-              });
-            },
-          }
-        );
-      }
-    });
-
-    // Initialize PhotoSwipe
-    const lightbox = new PhotoSwipeLightbox({
-      gallery: "#gallery-grid",
-      children: "a",
-      pswpModule: () => import("photoswipe"),
-    });
-    lightbox.init();
+    // 2. Animate Items (Simple Entrance)
+    const galleryItems = document.querySelectorAll(".gallery-item");
+    if (galleryItems.length > 0) {
+      gsap.killTweensOf(galleryItems);
+      gsap.fromTo(
+        galleryItems,
+        { y: 50, opacity: 0 },
+        {
+          scrollTrigger: {
+            trigger: "#gallery-grid",
+            start: "top 85%",
+          },
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.05, // Faster stagger for better feel
+          ease: "power3.out",
+          onComplete: () => {
+            // Cleanup to ensure visibility ensures
+            galleryItems.forEach((item) => {
+              (item as HTMLElement).style.opacity = "1";
+              (item as HTMLElement).style.transform = "none";
+            });
+          },
+        }
+      );
+    }
   };
 
   // Run on every page load (handles initial load and view transitions)

@@ -7,6 +7,9 @@ import InteractiveMap from "../components/InteractiveMap.astro";
 import Gallery from "../components/Gallery.astro";
 import zarateData from "../data/zarate.json";
 
+import { Image } from "astro:assets";
+import leyenda039 from "../assets/039.webp";
+
 const { content } = zarateData;
 import { Image } from "astro:assets";
 
@@ -160,9 +163,11 @@ const mitosImages = import.meta.glob<{ default: ImageMetadata }>(
       class="py-10 bg-slate-900 text-white relative overflow-hidden"
     >
       <div class="absolute inset-0 opacity-20">
-        <img
-          src={content.legends.featured.image}
-          alt="Taxi 039 en las calles de Z\u00e1rate - historia del vallenato"
+        <Image
+          src={leyenda039}
+          alt="Taxi 039 en las calles de Zárate - historia del vallenato"
+          width={800}
+          height={600}
           class="w-full h-full object-cover grayscale"
         />
       </div>

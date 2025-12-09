@@ -63,7 +63,9 @@ const visibleImages = allImages.slice(0, count);
             >
               <Image
                 src={image}
-                alt={`Galería Zárate ${index + 1}`}
+                alt={`Fotografía de Zárate ${index + 1}: paisajes y vida cotidiana`}
+                loading={index < 6 ? "eager" : "lazy"}
+                decoding="async"
                 class="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
                 widths={[400, 800]}
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

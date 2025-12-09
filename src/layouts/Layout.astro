@@ -66,6 +66,14 @@ const {
     <meta property="twitter:image" content={new URL(image, Astro.url)} />
     <meta property="twitter:image:alt" content={title} />
 
+    <!-- Preload LCP Image -->
+    <link
+      rel="preload"
+      as="image"
+      href={image}
+      fetchpriority="high"
+    />
+
     <!-- Geo Meta Tags for Local Search -->
     <meta name="geo.region" content={zarateData.site_config.geo.region} />
     <meta name="geo.placename" content={zarateData.site_config.geo.placename} />

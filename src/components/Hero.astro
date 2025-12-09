@@ -1,5 +1,5 @@
----
 import { Image } from "astro:assets";
+import heroBanner from "../assets/banner-bienvenidos-zarate.webp";
 import zarateData from "../data/zarate.json";
 
 const { hero } = zarateData.content;
@@ -16,7 +16,7 @@ const { hero } = zarateData.content;
 
     <!-- Hero Image - LCP Element -->
     <Image
-      src={hero.hero_image}
+      src={heroBanner}
       alt="Zárate: Vista panorámica de la ciénaga y el río Magdalena"
       width={1920}
       height={1080}

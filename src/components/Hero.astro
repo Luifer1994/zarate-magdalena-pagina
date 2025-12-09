@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import zarateData from "../data/zarate.json";
 
 const { hero } = zarateData.content;
@@ -14,14 +15,13 @@ const { hero } = zarateData.content;
     </div>
 
     <!-- Hero Image - LCP Element -->
-    <img
+    <Image
       src={hero.hero_image}
       alt="Zárate: Vista panorámica de la ciénaga y el río Magdalena"
-      width="1920"
-      height="1080"
+      width={1920}
+      height={1080}
       fetchpriority="high"
       loading="eager"
-      decoding="async"
       class="absolute top-1/2 left-1/2 w-full h-full min-w-full min-h-full -translate-x-1/2 -translate-y-1/2 object-cover hero-bg scale-110"
     />
   </div>

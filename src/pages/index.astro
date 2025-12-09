@@ -367,6 +367,6 @@ const mitosImages = import.meta.glob<{ default: ImageMetadata }>(
           },
         });
       }
-    }, 100); // Small delay to yield main thread
+    }, 2500); // 2.5s delay to ensure zero main thread contention
   });
 </script>

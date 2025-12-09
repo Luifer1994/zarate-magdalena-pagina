@@ -32,7 +32,7 @@ const visibleImages = allImages.slice(0, count);
       <h2 class="text-4xl font-serif text-zarate-earth mb-4 gsap-fade-up">
         {title}
       </h2>
-      <p class="text-slate-500 gsap-fade-up">
+      <p class="text-slate-600 gsap-fade-up">
         {subtitle}
       </p>
     </div>
@@ -61,7 +61,7 @@ const visibleImages = allImages.slice(0, count);
               target="_blank"
               class={
                 isVisible
-                  ? "gallery-item block break-inside-avoid mb-4 group relative overflow-hidden rounded-2xl shadow-md cursor-pointer opacity-0 translate-y-10"
+                  ? "gallery-item block break-inside-avoid-column mb-4 group relative overflow-hidden rounded-2xl shadow-md cursor-pointer opacity-0 translate-y-10"
                   : "hidden"
               }
               data-index={index}
@@ -70,7 +70,7 @@ const visibleImages = allImages.slice(0, count);
                 src={image}
                 alt={`Galería Zárate ${index + 1}`}
                 class="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
-                widths={[400, 800]}
+                widths={[240, 480, 720]}
                 sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 33vw"
                 loading={isEager ? "eager" : "lazy"}
                 fetchpriority={isEager ? "high" : "auto"}

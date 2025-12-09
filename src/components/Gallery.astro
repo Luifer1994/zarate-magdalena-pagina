@@ -71,11 +71,12 @@ const visibleImages = allImages.slice(0, count);
                 alt={`Galería Zárate ${index + 1}`}
                 class="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105 bg-gray-200"
                 style={`aspect-ratio: ${image.width} / ${image.height};`}
-                widths={[240, 480, 720]}
+                widths={[240, 360, 480, 720]}
                 sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 33vw"
-                loading={isEager ? "eager" : "lazy"}
-                fetchpriority={isEager ? "high" : "auto"}
+                loading="lazy"
+                fetchpriority="auto"
                 decoding="async"
+                quality={20}
               />
               <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
                 <span class="text-white text-4xl font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform scale-50 group-hover:scale-100">

@@ -276,15 +276,14 @@ const mitosImages = import.meta.glob<{ default: ImageMetadata }>(
     // Check if we are on the index page (or a page with #territorio)
     if (!document.getElementById("territorio")) return;
 
-    // Zen Mode: Load scripts ONLY when user interacts (scrolls/moves/touches)
-    // This removes the script from the initial LCP waterfall completely.
+    // Zen Mode: Load scripts locally ONLY when user interacts
     const loadScripts = async () => {
       // Remove listeners to run once
       ["scroll", "mousemove", "touchstart"].forEach((event) => {
         window.removeEventListener(event, loadScripts);
       });
 
-      // Standard dynamic imports (Zen Mode preserved via interaction listener)
+      // Standard dynamic imports (Uses local node_modules)
       const { default: gsap } = await import("gsap");
       const { ScrollTrigger } = await import("gsap/ScrollTrigger");
 

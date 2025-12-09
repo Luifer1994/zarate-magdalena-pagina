@@ -148,7 +148,7 @@ const visibleImages = allImages.slice(0, count);
 
   // Run on every page load (handles initial load and view transitions)
   document.addEventListener("astro:page-load", () => {
-    // Zen Mode: Load gallery scripts ONLY when user interacts
+    // Zen Mode: Load scripts locally ONLY when user interacts
     const initGallery = async () => {
       // Remove listeners
       ["scroll", "mousemove", "touchstart"].forEach((event) => {
@@ -207,7 +207,6 @@ const visibleImages = allImages.slice(0, count);
         );
       }
     };
-
     // Add interaction listeners
     ["scroll", "mousemove", "touchstart"].forEach((event) => {
       window.addEventListener(event, initGallery, {

@@ -148,6 +148,15 @@
       }
     };
 
+    // 4. Pause on Tab Switch / Minimize / Hidden
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden && !audio.paused) {
+        audio.pause();
+        btn.classList.remove("playing");
+        userStoppedAudio = true; // Treat as user stopping it
+      }
+    });
+
     // Attach unlock listeners
     if (!userStoppedAudio) {
       interactionEvents.forEach((event) => {

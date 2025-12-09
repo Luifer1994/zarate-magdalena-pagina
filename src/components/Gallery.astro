@@ -148,11 +148,25 @@ const visibleImages = allImages.slice(0, count);
 
   // Run on every page load (handles initial load and view transitions)
   document.addEventListener("astro:page-load", () => {
-    // Platinum Mode: Defer execution by 3.5s to purely unblock Main Thread for LCP
-    setTimeout(async () => {
-      const grid = document.getElementById("gallery-grid");
-      if (!grid) return;
+    // Titanium Mode: Load scripts only when gallery approaches viewport
+    const grid = document.getElementById("gallery-grid");
+    if (!grid) return;
 
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            initGallery();
+            observer.disconnect();
+          }
+        });
+      },
+      { rootMargin: "200px" }
+    );
+
+    observer.observe(grid);
+
+    async function initGallery() {
       // Dynamically import libraries (Standard local imports)
       const { default: gsap } = await import("gsap");
       const { ScrollTrigger } = await import("gsap/ScrollTrigger");
@@ -201,7 +215,6 @@ const visibleImages = allImages.slice(0, count);
           }
         );
       }
-    }, 3500); // 3.5s delay
+    }
   });
 </script>
-```

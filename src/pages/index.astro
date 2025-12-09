@@ -276,8 +276,29 @@ const mitosImages = import.meta.glob<{ default: ImageMetadata }>(
     // Check if we are on the index page (or a page with #territorio)
     if (!document.getElementById("territorio")) return;
 
-    // Platinum Mode: Defer execution by 3.5s to purely unblock Main Thread for LCP
-    setTimeout(async () => {
+    // Titanium Mode: Load scripts only when user reaches the content
+    // This allows the initial viewport (LCP) to remain completely script-free forever if the user doesn't scroll.
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            loadScripts();
+            observer.disconnect();
+          }
+        });
+      },
+      { rootMargin: "200px" }
+    ); // Load slightly before it comes into view
+
+    const territorySection = document.getElementById("territorio");
+    if (territorySection) {
+      observer.observe(territorySection);
+    } else {
+      // Fallback if section missing
+      setTimeout(loadScripts, 4000);
+    }
+
+    async function loadScripts() {
       // Standard dynamic imports
       const { default: gsap } = await import("gsap");
       const { ScrollTrigger } = await import("gsap/ScrollTrigger");
@@ -367,6 +388,6 @@ const mitosImages = import.meta.glob<{ default: ImageMetadata }>(
           },
         });
       }
-    }, 3500); // 3.5s delay to ensure zero main thread contention
+    }
   });
 </script>
